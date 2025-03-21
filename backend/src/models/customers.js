@@ -7,18 +7,22 @@ const customersSchema = new Schema({
     },
     password:{
         type:String,
+        minlenght: 8,
         require:true
     },
     mail:{
         type:String,
+        minlenght: 6,
         require:true
     },
     age:{
         type:Number,
-        require:true
+        require:true,
+        min: 14,
     },
     phone:{
         type:Number,
+        minlenght: 8,
         require:true
     }
 },

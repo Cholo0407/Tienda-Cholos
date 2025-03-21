@@ -7,10 +7,12 @@ const adminsSchema = new Schema({
       },
       password:{
        type:String,
+       minlenght: 8,
        require:true,
       },
       mail:{
         type:String,
+        minlenght: 6,
         require:true
       },
       age:{
@@ -20,6 +22,7 @@ const adminsSchema = new Schema({
       },
       phone:{
        type:String,
+       minlenght: 8,
        require:true
       }
 },
