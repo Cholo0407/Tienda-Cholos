@@ -7,13 +7,33 @@ const salesSchema = new Schema(
             required: true,
         },
         date: {
-            type: Date,
-            required: true,
-        },
-        addres: {
             type: String,
             required: true,
         },
+        addres: {
+                adress: {
+                    type: String,
+                    required: true,
+                    minLenght: 10
+                },
+                city: {
+                    type: String,
+                    required: true,
+                    minLenght: 4
+                },
+                department: {
+                    type: String,
+                    required: true,
+                },
+                zipCode: {
+                    type: String,
+                    required: true,
+                },
+                additionalInformation:{
+                    type: String,
+                    required: false
+                }
+            },
         idSaleDetail: {
             type: Schema.Types.ObjectId,
             ref: "saleDetails",
