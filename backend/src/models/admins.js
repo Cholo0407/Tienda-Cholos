@@ -8,10 +8,6 @@ const adminsSchema = new Schema({
       password:{
        type:String,
        require:true,
-       match:[
-        /^[A-Z]{8}/,
-        "La contraseña debe contener excatamente 8 digitos"
-       ]
       },
       mail:{
         type:String,
