@@ -9,8 +9,8 @@ salesController.getSales = async (req, res) => {
 
 // INSERT
 salesController.creatSales = async (req, res) => {
-    const { paymentMethod, state, date, addres, idCustomer, saleDetail, total } = req.body;
-    const newSales = new salesModel({ paymentMethod, state, date, addres, idCustomer, saleDetail, total });
+    const { paymentMethod, date, addres, idSaleDetail, total, state } = req.body;
+    const newSales = new salesModel({ paymentMethod, date, addres, idSaleDetail, total, state });
     await newSales.save();
     res.json({ message: "sale saved" });
 };

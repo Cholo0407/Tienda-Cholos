@@ -6,10 +6,6 @@ const salesSchema = new Schema(
             type: String,
             required: true,
         },
-        state: {
-            type: String,
-            required: true,
-        },
         date: {
             type: Date,
             required: true,
@@ -18,29 +14,19 @@ const salesSchema = new Schema(
             type: String,
             required: true,
         },
-        idCustomer:{
+        idSaleDetail: {
             type: Schema.Types.ObjectId,
-            ref: "Customers",
-            required: [true, "El id del cliente es obligatorio"]
+            ref: "saleDetails",
+            required: [true, "El id del carrito es obligatorio"] 
         },
-        saleDetail: [
-            {
-                idProduct: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Shoes",
-                    required: true,
-                },
-                quantity: {
-                    type: Number,
-                    min: [1, "La cantidad debe ser almenos 1"],
-                    required: true,
-                }
-            }
-        ],
         total: {
             type: Number,
             required: true
-        }
+        },
+        state: {
+            type: String,
+            required: true,
+        },
     },
     {
         timestamps: true,
