@@ -3,7 +3,7 @@ const brandsCon = {};
 import brandsModel from "../models/brands.js"
 
 brandsCon.getBrands = async (req,res) =>{
-    const brands= new brandsModel.find();
+    const brands= await brandsModel.find();
     res.json(brands);
 };
 
