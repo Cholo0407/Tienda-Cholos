@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+
+  
+  .App {
+    text-align: left;
+  }
+  
+  /* Estilos del encabezado */
+  .main-header {
+    background-color: #222831;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+  }
+  
+  .header-content {
+    max-width: 600px;
+  }
+  
+  .main-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; /* Black weight */
+    font-size: 72px;
+    line-height: 108%; /* 108% of 72px = ~77.76px */
+    color: #EEEEEE;
+    margin: 0;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .tagline {
+    font-size: 1.8rem;
+    margin: 0.5rem 0 0;
+    letter-spacing: 1px;
+    color: #ccc;
+    line-height: 1.4;
+  }
+  
+  .subtagline {
+    font-size: 1.4rem;
+    margin: 1.5rem 0 0;
+    letter-spacing: 1px;
+    color: #999;
+    font-weight: 300;
+  }
+
+
+  /*estilo del boton */
+  .cta-button {
+    background-color: #008A90;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #e64a19;
+  }
