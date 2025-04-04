@@ -2,14 +2,14 @@ const shoessController = {};
 import shoesModel from "../models/shoes.js";
 
 //select
-shoesController.getshoes = async (req, res) => {
+shoessController.getshoes = async (req, res) => {
     const shoes = await shoesModel.find();
     res.json(shoes);
 };
 
 
 //insert
-shoesController.createshoes = async (req, res) => {
+shoessController.createshoes = async (req, res) => {
     const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, images, sale } = req.body;
 
     const newshoes = new shoesModel({
@@ -32,7 +32,7 @@ shoesController.createshoes = async (req, res) => {
 };
 
 //delete
-shoesController.deletedshoes = async (req, res) => {
+shoessController.deletedshoes = async (req, res) => {
     const deletedshoes = await shoesModel.findByIdAndDelete(req.params.id);
     if (!deletedshoes) {
         return res.status(404).json({ message: "shoe dont find" });
@@ -43,7 +43,7 @@ shoesController.deletedshoes = async (req, res) => {
 
 
 //update
-shoesController.updateshoes = async (req, res) => {
+shoessController.updateshoes = async (req, res) => {
     const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, images, sale } = req.body;
 
     await shoesModel.findByIdAndUpdate(
@@ -68,4 +68,4 @@ shoesController.updateshoes = async (req, res) => {
     res.json({ message: "shoe update" });
 };
 
-export default shoesController;
+export default shoessController;

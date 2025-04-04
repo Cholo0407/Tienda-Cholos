@@ -32,6 +32,11 @@ const saleDetailsSchema = new Schema(
             min: [1, "la cantidad debe ser almenos 1"],
             required:true,
         },
+        state: {
+            type: String,
+            minLenght: 4,
+            required: true,
+        }
     },
     {
         timestamps: true,

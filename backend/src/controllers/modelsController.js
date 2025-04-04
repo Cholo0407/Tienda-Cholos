@@ -38,3 +38,4 @@ modelsController.updatemodels = async (req, res) => {
     res.json({message: "model update"})
 }
 
+export default modelsController;

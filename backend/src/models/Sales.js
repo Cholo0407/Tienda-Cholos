@@ -6,41 +6,47 @@ const salesSchema = new Schema(
             type: String,
             required: true,
         },
+        date: {
+            type: String,
+            required: true,
+        },
+        addres: {
+                adress: {
+                    type: String,
+                    required: true,
+                    minLenght: 10
+                },
+                city: {
+                    type: String,
+                    required: true,
+                    minLenght: 4
+                },
+                department: {
+                    type: String,
+                    required: true,
+                },
+                zipCode: {
+                    type: String,
+                    required: true,
+                },
+                additionalInformation:{
+                    type: String,
+                    required: false
+                }
+            },
+        idSaleDetail: {
+            type: Schema.Types.ObjectId,
+            ref: "saleDetails",
+            required: [true, "El id del carrito es obligatorio"] 
+        },
+        total: {
+            type: Number,
+            required: true
+        },
         state: {
             type: String,
             required: true,
         },
-        date: {
-            type: Date,
-            required: true,
-        },
-        addres: {
-            type: String,
-            required: true,
-        },
-        idCustomer:{
-            type: Schema.Types.ObjectId,
-            ref: "Customers",
-            required: [true, "El id del cliente es obligatorio"]
-        },
-        saleDetail: [
-            {
-                idProduct: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Shoes",
-                    required: true,
-                },
-                quantity: {
-                    type: Number,
-                    min: [1, "La cantidad debe ser almenos 1"],
-                    required: true,
-                }
-            }
-        ],
-        total: {
-            type: Number,
-            required: true
-        }
     },
     {
         timestamps: true,

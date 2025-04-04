@@ -1,16 +1,16 @@
 import express from "express";
-import shoesController from "../controllers/shoesController.js";
+import shoessController from "../controllers/shoesController.js";
 
 const router = express.Router();
 
 router
   .route("/")
-  .get(shoesController.getshoes)
-  .post(shoesController.createshoes);
+  .get(shoessController.getshoes)
+  .post(shoessController.createshoes);
 
 router
   .route("/:id")
-  .put(shoesController.updateshoes)
-  .delete(shoesController.deletedshoes);
+  .put(shoessController.updateshoes)
+  .delete(shoessController.deletedshoes);
 
 export default router;
