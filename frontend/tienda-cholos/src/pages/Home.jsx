@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/Home.css";
+import "../../styles/Home.css";
 
 const Home = () => {
   return (
@@ -8,7 +8,7 @@ const Home = () => {
         <h1>Cholo's</h1>
         <p className="tagline">El estilo que pisa fuerte</p>
         <p className="subtagline">Compra en nuestra tienda</p>
-        <button className="cta-button">Ver productos</button>
+        <button className="cta-button">Compra en nuestra tienda</button>
       </div>
     </div>
   );
