@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import adidas from '../images/Adidas.png';
 
 function Shoes() {
-  const [priceValue, setPriceValue] = useState(1000);
+  const [selectedPriceOrder, setSelectedPriceOrder] = useState(""); // Nuevo estado para controlar la selección
   const [openSections, setOpenSections] = useState({
     CATEGORÍA: true,
     GÉNERO: false,
@@ -34,24 +37,73 @@ function Shoes() {
     );
   };
 
-  const CheckboxOption = ({ label }) => (
+  const CheckboxOption = ({ label, checked, onChange }) => (
     <div className="flex items-center py-1">
-      <input type="checkbox" className="mr-2 accent-teal-500" />
-      <span className="text-sm text-gray-600">{label}</span>
+      <input
+        type="checkbox"
+        className="custom-checkbox"
+        id={label}
+        checked={checked}
+        onChange={onChange}
+      />
+      <label htmlFor={label} className="ml-2 text-sm text-gray-600">
+        {label}
+      </label>
     </div>
   );
 
-  const ProductCard = ({ name, color, price }) => (
-    <div className="flex flex-col items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300">
-      <img src="/api/placeholder/200/120" alt={name} className="w-full mb-3 rounded" />
-      <h3 className="font-medium text-sm text-gray-900">{name}</h3>
-      <p className="text-xs text-gray-500">{color}</p>
-      <p className="font-bold mt-1 text-teal-600">$ {price.toFixed(2)}</p>
-    </div>
-  );
+ const ProductCard = ({ name, color, price }) => {
+    const routeName = name.toLowerCase().replace(/\s+/g, '-');
+  
+    return (
+      <Link to={`/${routeName + "-" + color}`}>
+        <div className="flex flex-col items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
+          <img src={adidas} alt={name} className="w-full mb-3 rounded" />
+          <h3 className="font-medium text-sm text-gray-900">{name}</h3>
+          <p className="text-xs text-gray-500">{color}</p>
+          <p className="font-bold mt-1 text-teal-600">$ {price.toFixed(2)}</p>
+        </div>
+      </Link>
+    );
+  };
+  
 
   return (
     <div className="min-h-screen bg-white text-black pt-20 px-6 pb-12">
+      <style>
+        {`
+          .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            padding: 6px;
+            border-radius: 4px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+          }
+
+          .custom-checkbox:checked {
+            background-color: #008A90;
+            border-color: #008A90;
+          }
+
+          .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            width: 4px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+          }
+        `}
+      </style>
+
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row w-full gap-6">
           {/* Sidebar de filtros */}
@@ -86,37 +138,26 @@ function Shoes() {
             </FilterAccordion>
 
             <FilterAccordion title="PRECIO">
-              <CheckboxOption label="MAYOR A MENOR" />
-              <CheckboxOption label="MENOR A MAYOR" />
-              <div className="mt-4">
-                <div className="flex justify-between text-xs mb-1 text-gray-500">
-                  <span>${priceValue}</span>
-                  <span>$2000+</span>
-                </div>
-                <input
-                  type="range"
-                  className="w-full accent-teal-500"
-                  min="0"
-                  max="2000"
-                  value={priceValue}
-                  onChange={(e) => setPriceValue(parseInt(e.target.value))}
-                />
-              </div>
+              {/* Cambiado aquí para controlar la selección única */}
+              <CheckboxOption
+                label="MAYOR A MENOR"
+                checked={selectedPriceOrder === "MAYOR A MENOR"}
+                onChange={() => setSelectedPriceOrder("MAYOR A MENOR")}
+              />
+              <CheckboxOption
+                label="MENOR A MAYOR"
+                checked={selectedPriceOrder === "MENOR A MAYOR"}
+                onChange={() => setSelectedPriceOrder("MENOR A MAYOR")}
+              />
             </FilterAccordion>
           </div>
 
           {/* Cuadrícula de productos */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <ProductCard name="Vans old school" color="Black white" price={99.0} />
-              <ProductCard name="Vans old school" color="Black white" price={99.0} />
-              <ProductCard name="Vans old school" color="Black white" price={99.0} />
-              <ProductCard name="Nike Air force 1" color="White" price={100.0} />
-              <ProductCard name="Nike Air force 1" color="White" price={100.0} />
-              <ProductCard name="Nike Air force 1" color="White" price={100.0} />
-              <ProductCard name="Adidas Samba OG" color="White" price={90.0} />
-              <ProductCard name="Adidas Samba OG" color="White" price={90.0} />
-              <ProductCard name="Adidas Samba OG" color="White" price={90.0} />
+              {[...Array(12)].map((_, i) => (
+                <ProductCard key={i} name="Adidas Samba OG" color="White" price={90.0} />
+              ))}
             </div>
           </div>
         </div>
