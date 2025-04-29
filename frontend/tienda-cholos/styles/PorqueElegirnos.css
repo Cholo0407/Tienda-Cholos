@@ -1,0 +1,75 @@
+.porque-elegirnos {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 2rem 5vw;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    margin-top: 5rem; /* ✅ separa del contenido anterior */
+  }
+  
+  
+  .porque-elegirnos h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #14213D;
+    margin-bottom: 0.5rem;
+  }
+  
+  .porque-elegirnos .descripcion {
+    color: #6B7280;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .razones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    justify-items: center;
+  }
+  
+  .razon-horizontal {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  .icono-container {
+    flex-shrink: 0;
+  }
+  
+  .icono {
+    font-size: 2rem;
+    color: #B0B0B0;
+  }
+  
+  .texto h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: #1F2937;
+  }
+  
+  .texto p {
+    margin: 0;
+    color: #6B7280;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .razones-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .razones-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
