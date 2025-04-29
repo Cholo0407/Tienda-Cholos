@@ -8,6 +8,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* NUEVOS ESTILOS PARA FIJAR ARRIBA */
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 /* Contenedor principal */
@@ -20,7 +27,7 @@
   gap: 2rem;
 }
 
-/* Estilos para el logo - ahora correctamente circular */
+/* Estilos para el logo */
 .logo-link {
   display: flex;
   align-items: center;
@@ -35,7 +42,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Menú de navegación alineado correctamente */
+/* Menú de navegación */
 .nav-menu {
   display: flex;
   justify-content: center;
@@ -65,24 +72,24 @@
   opacity: 0.8;
 }
 
-/* Versión responsive */
+/* Responsive */
 @media (max-width: 768px) {
   .nav-container {
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 1rem;
   }
-  
+
   .logo-link {
     margin-bottom: 1rem;
   }
-  
+
   .nav-menu {
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
   }
-  
+
   .logo-image {
     width: 50px;
     height: 50px;

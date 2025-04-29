@@ -44,6 +44,6 @@ const Nav = () => {
         </div>
       </nav>
     );
-  };
-  
-  export default Nav;
+};
+
+export default Nav;
