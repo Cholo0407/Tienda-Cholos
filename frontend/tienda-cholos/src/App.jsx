@@ -6,12 +6,7 @@ import Product from './pages/product.jsx';
 import Nav from './components/Nav.jsx';
 import './App.css';
 import ContactForm from './pages/about.jsx'
-<<<<<<< HEAD
-import Footer from "../components/Footer";
-
-=======
-import ShoppingCart from './pages/cart.jsx'
->>>>>>> 4efcc9c20296233eea5d18df343e6bf3b518d05a
+import ShoppingCart from './pages/cart.jsx'; // Asegúrate que esta ruta es correcta
 
 function App() {
   return (
