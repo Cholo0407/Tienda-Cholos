@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { Mail, Phone } from 'lucide-react';
+<<<<<<< Updated upstream
 import Footer from "../components/Footer";
 import "../../styles/fuente.css";
+=======
+import "../../styles/fuente.css"
+>>>>>>> Stashed changes
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -29,6 +33,7 @@ export default function ContactForm() {
   };
 
   return (
+<<<<<<< Updated upstream
     <div className="bg-white">
       <div className="w-full max-w-3xl mx-auto text-center px-6 min-h-screen pt-20 pb-12">
         <h1 className="text-4xl font-bold text-teal-700 mb-10 font-playfair">
@@ -39,6 +44,16 @@ export default function ContactForm() {
           Completa el formulario a continuación<br />
           y nuestro equipo se pondrá en contacto contigo lo antes posible.
         </p>
+=======
+    <div className="w-full max-w-3xl mx-auto text-center px-4, min-h-screen pt-20 px-6 pb-12">
+      <h1 className="text-4xl font-bold text-teal-700 mb-4 font-playfair">
+        ¡Estamos aquí para ayudarte!
+      </h1>
+
+      <p className="text-gray-600 mb-8 font-poppins"/>
+      <br />
+      <br />
+>>>>>>> Stashed changes
 
         <div className="bg-[#1c2128] rounded-[40px] p-8 mb-12 shadow-lg">
           {['nombre', 'correo', 'telefono', 'asunto'].map((field) => (
@@ -57,12 +72,21 @@ export default function ContactForm() {
           ))}
         </div>
 
+<<<<<<< Updated upstream
         <button
           onClick={handleSubmit}
           className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-10 rounded-[20px] mb-10 font-poppins"
         >
           Enviar
         </button>
+=======
+      <br />
+      <br />
+      <p className="text-gray-600 mb-8">
+        Completa el formulario a continuación<br />
+        y nuestro equipo se pondrá en contacto contigo lo antes posible.
+      </p>
+>>>>>>> Stashed changes
 
         <div className="text-center space-y-6">
           <h2 className="text-gray-800 font-medium text-lg">
