@@ -1,7 +1,9 @@
 import React from "react";
 import "../../styles/Home.css";
 import Imagenes from "../components/Imagenes";
-import PorqueElegirnos from "../components/PorqueElegirnos"; 
+import PorqueElegirnos from "../components/PorqueElegirnos";
+import EncuentraPar from "../components/EncuentraPar";
+import Footer from "../components/Footer";
 
 
 const Home = () => {
@@ -19,7 +21,15 @@ const Home = () => {
         </div>
       </div>
 
-      <PorqueElegirnos /> {/* <-- ya fuera del header */}
+      <PorqueElegirnos /> 
+       
+
+      <EncuentraPar />
+
+      
+      <Footer />
+
+      
     </div>
   );
 };

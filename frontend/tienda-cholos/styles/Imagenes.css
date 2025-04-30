@@ -12,7 +12,7 @@
   
   .gallery-main-image {
     width: 100%;
-    height: 420px; /* Más alto aún para dar presencia */
+    height: 420px; 
     object-fit: cover;
     object-position: center;
     border-radius: 16px;
@@ -22,7 +22,7 @@
     display: flex;
     gap: 16px;
     width: 100%;
-    height: 420px; /* Igual que el top */
+    height: 420px; 
   }
   
   .gallery-left {
@@ -35,7 +35,7 @@
   
   .gallery-small-image {
     width: 100%;
-    height: calc(50% - 8px); /* Mitad del nuevo espacio */
+    height: calc(50% - 8px); 
     object-fit: cover;
     object-position: center;
     border-radius: 16px;
@@ -54,7 +54,7 @@
     border-radius: 16px;
   }
   
-  /* Responsivo */
+  /* Responsive */
   @media (max-width: 1024px) {
     .gallery-container {
       max-width: 100%;
