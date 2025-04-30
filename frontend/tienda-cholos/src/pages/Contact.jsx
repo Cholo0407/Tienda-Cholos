@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { Mail, Phone } from 'lucide-react';
-<<<<<<< Updated upstream
 import Footer from "../components/Footer";
 import "../../styles/fuente.css";
-=======
-import "../../styles/fuente.css"
->>>>>>> Stashed changes
-
+ 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     nombre: '',
@@ -14,14 +10,14 @@ export default function ContactForm() {
     telefono: '',
     asunto: ''
   });
-
+ 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-
+ 
   const handleSubmit = () => {
     alert('Formulario enviado con éxito');
     setFormData({
@@ -31,30 +27,18 @@ export default function ContactForm() {
       asunto: ''
     });
   };
-
+ 
   return (
-<<<<<<< Updated upstream
     <div className="bg-white">
       <div className="w-full max-w-3xl mx-auto text-center px-6 min-h-screen pt-20 pb-12">
         <h1 className="text-4xl font-bold text-teal-700 mb-10 font-playfair">
           ¡Estamos aquí para ayudarte!
         </h1>
-
+ 
         <p className="text-gray-600 mb-12 font-poppins leading-relaxed text-lg">
           Completa el formulario a continuación<br />
           y nuestro equipo se pondrá en contacto contigo lo antes posible.
         </p>
-=======
-    <div className="w-full max-w-3xl mx-auto text-center px-4, min-h-screen pt-20 px-6 pb-12">
-      <h1 className="text-4xl font-bold text-teal-700 mb-4 font-playfair">
-        ¡Estamos aquí para ayudarte!
-      </h1>
-
-      <p className="text-gray-600 mb-8 font-poppins"/>
-      <br />
-      <br />
->>>>>>> Stashed changes
-
         <div className="bg-[#1c2128] rounded-[40px] p-8 mb-12 shadow-lg">
           {['nombre', 'correo', 'telefono', 'asunto'].map((field) => (
             <div className="mb-6 text-left" key={field}>
@@ -71,28 +55,18 @@ export default function ContactForm() {
             </div>
           ))}
         </div>
-
-<<<<<<< Updated upstream
+ 
         <button
           onClick={handleSubmit}
           className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-10 rounded-[20px] mb-10 font-poppins"
         >
           Enviar
         </button>
-=======
-      <br />
-      <br />
-      <p className="text-gray-600 mb-8">
-        Completa el formulario a continuación<br />
-        y nuestro equipo se pondrá en contacto contigo lo antes posible.
-      </p>
->>>>>>> Stashed changes
-
         <div className="text-center space-y-6">
           <h2 className="text-gray-800 font-medium text-lg">
             Comunícate en nuestros medios oficiales:
           </h2>
-
+ 
           <div className="flex justify-center items-center space-x-12">
             <div className="flex items-center">
               <span className="text-gray-700 mr-2">Correo:</span>
@@ -101,7 +75,7 @@ export default function ContactForm() {
                 <Mail className="ml-1 h-4 w-4" />
               </a>
             </div>
-
+ 
             <div className="flex items-center">
               <span className="text-gray-700 mr-2">Número:</span>
               <a href="#" className="text-teal-500 hover:underline flex items-center">
@@ -112,8 +86,7 @@ export default function ContactForm() {
           </div>
         </div>
       </div>
-
+ 
       <Footer />
     </div>
-  );
-}
+  )}
