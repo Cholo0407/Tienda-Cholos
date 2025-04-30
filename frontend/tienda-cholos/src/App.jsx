@@ -5,7 +5,7 @@ import Shoes from './pages/shoes.jsx';
 import Product from './pages/product.jsx';
 import Nav from './components/Nav.jsx';
 import './App.css';
-import ContactForm from './pages/about.jsx'
+import ContactForm from './pages/Contact.jsx'
 import ShoppingCart from './pages/cart.jsx'; // Asegúrate que esta ruta es correcta
 
 function App() {
