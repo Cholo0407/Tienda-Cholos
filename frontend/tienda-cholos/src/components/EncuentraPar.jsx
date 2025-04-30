@@ -23,7 +23,7 @@ const EncuentraPar = () => {
           </div>
         </div>
       </div>
-
+      <br />
       <div className="logos">
        <img src={nike} alt="Nike" />
        <img src={adidas} alt="Adidas" />
@@ -31,6 +31,7 @@ const EncuentraPar = () => {
        <img src={newbalance} alt="New Balance" />
        <img src={converse} alt="Converse" />
       </div>
+      <br />
     </section>
   );
 };
