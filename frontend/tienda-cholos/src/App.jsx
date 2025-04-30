@@ -5,6 +5,7 @@ import Shoes from './pages/shoes.jsx'
 import Nav from './components/Nav.jsx';
 import './App.css';
 import ContactForm from './pages/about.jsx'
+import ShoppingCart from './pages/cart.jsx'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/shoes" element={<Shoes />} />
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactForm />} />
+        <Route path="/cart" element={<ShoppingCart />} />
       </Routes>
     </Router>
   );
