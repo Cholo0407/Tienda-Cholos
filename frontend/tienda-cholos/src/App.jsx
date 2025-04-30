@@ -6,6 +6,8 @@ import Product from './pages/product.jsx';
 import Nav from './components/Nav.jsx';
 import './App.css';
 import ContactForm from './pages/about.jsx'
+import Footer from "../components/Footer";
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/product" element={<Product />} /> {/* Esta es la ruta dinámica */}
       </Routes>
     </Router>
+
+
   );
 }
 

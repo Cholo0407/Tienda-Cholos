@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Mail, Phone } from 'lucide-react';
+import Footer from "../components/Footer";
+
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -27,7 +29,8 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto text-center px-4, min-h-screen pt-20 px-6 pb-12">
+    <div className="bg-white"> 
+    <div className="w-full bg-white max-w-3xl mx-auto text-center px-4, min-h-screen pt-20 px-6 pb-12">
       <br />
       <br />
 
@@ -87,6 +90,8 @@ export default function ContactForm() {
             </div>
           </div>
         </div>
+    </div>
+    <Footer />
     </div>
   );
 }

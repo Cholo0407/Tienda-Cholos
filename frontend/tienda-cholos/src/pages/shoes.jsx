@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import nike from '../images/nike.png';
+import Footer from "../components/Footer";
+
 
 function Shoes() {
   const [selectedPriceOrder, setSelectedPriceOrder] = useState(""); // Nuevo estado para controlar la selección
@@ -71,6 +73,7 @@ function Shoes() {
   
 
   return (
+    <div>
     <div className="min-h-screen bg-white text-black pt-20 px-6 pb-12">
       <style>
         {`
@@ -180,6 +183,11 @@ function Shoes() {
           </div>
         </div>
       </div>
+
+      
+
+    </div>
+    <Footer />
     </div>
   );
 }

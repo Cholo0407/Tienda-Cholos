@@ -47,6 +47,7 @@ const PorqueElegirnos = () => {
             </div>
           ))}
         </div>
+        <br /><br />
       </section>
     );
   };
