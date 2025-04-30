@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import adidas from '../images/Adidas.png';
+import nike from '../images/nike.png';
 
 function Shoes() {
   const [selectedPriceOrder, setSelectedPriceOrder] = useState(""); // Nuevo estado para controlar la selección
@@ -54,14 +53,17 @@ function Shoes() {
 
  const ProductCard = ({ name, color, price }) => {
     const routeName = name.toLowerCase().replace(/\s+/g, '-');
+    const shoeColor = color.toLowerCase().replace(/\s+/g, '-')
   
     return (
-      <Link to={`/${routeName + "-" + color}`}>
-        <div className="flex flex-col items-center bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer">
-          <img src={adidas} alt={name} className="w-full mb-3 rounded" />
-          <h3 className="font-medium text-sm text-gray-900">{name}</h3>
-          <p className="text-xs text-gray-500">{color}</p>
-          <p className="font-bold mt-1 text-teal-600">$ {price.toFixed(2)}</p>
+      <Link to="/product">
+        <div id="card-hover" className="flex flex-col w-full bg-white rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer">
+          <img src={nike} alt={name} className="w-full mb-3 rounded" />
+          <div className="px-3 pb-3 text-left">
+            <h3 className="font-medium text-sm text-gray-900">{name}</h3>
+            <p className="text-xs text-gray-500">{color}</p>
+            <p className="font-bold mt-1 text-black">$ {price.toFixed(2)}</p>
+          </div>
         </div>
       </Link>
     );
@@ -72,7 +74,7 @@ function Shoes() {
     <div className="min-h-screen bg-white text-black pt-20 px-6 pb-12">
       <style>
         {`
-          .custom-checkbox {
+        .custom-checkbox {
             appearance: none;
             -webkit-appearance: none;
             background-color: #fff;
@@ -83,14 +85,14 @@ function Shoes() {
             position: relative;
             cursor: pointer;
             transition: background-color 0.2s ease, border-color 0.2s ease;
-          }
+        }
 
-          .custom-checkbox:checked {
+        .custom-checkbox:checked {
             background-color: #008A90;
             border-color: #008A90;
-          }
+        }
 
-          .custom-checkbox:checked::after {
+        .custom-checkbox:checked::after {
             content: '';
             position: absolute;
             top: 2px;
@@ -100,7 +102,13 @@ function Shoes() {
             border: solid white;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
-          }
+        }
+
+        #card-hover:hover {
+            transform: scale(1.01);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
         `}
       </style>
 
@@ -155,9 +163,19 @@ function Shoes() {
           {/* Cuadrícula de productos */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(12)].map((_, i) => (
-                <ProductCard key={i} name="Adidas Samba OG" color="White" price={90.0} />
-              ))}
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+                <ProductCard name="Nike Air Force One" color="White" price={90.0} />
+
             </div>
           </div>
         </div>
