@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Mail, Phone } from 'lucide-react';
-import Footer from '../components/footer'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -29,10 +28,15 @@ export default function ContactForm() {
 
   return (
     <div className="w-full max-w-3xl mx-auto text-center px-4, min-h-screen pt-20 px-6 pb-12">
+      <br />
+      <br />
+
       <h1 className="text-4xl font-bold text-teal-700 mb-4">
         ¡Estamos aquí para ayudarte!
       </h1>
 
+      <br />
+      <br />
       <p className="text-gray-600 mb-8">
         Completa el formulario a continuación<br />
         y nuestro equipo se pondrá en contacto contigo lo antes posible.
