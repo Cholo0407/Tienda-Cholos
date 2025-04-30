@@ -4,6 +4,7 @@ import Home from './pages/Home.jsx';
 import Shoes from './pages/shoes.jsx'
 import Nav from './components/Nav.jsx';
 import './App.css';
+import ContactForm from './pages/about.jsx'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/shoes" element={<Shoes />} />
         <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<ContactForm />} />
       </Routes>
     </Router>
   );
