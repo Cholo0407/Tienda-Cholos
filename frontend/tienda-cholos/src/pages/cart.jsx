@@ -25,7 +25,7 @@ export default function ShoppingCart() {
   const total = subtotal + serviceCharge;
 
   return (
-    <div className="flex flex-col min-h-screen pt-[4rem] bg-white"> 
+    <div className="flex flex-col min-h-screen pt-[5rem] bg-white"> 
       <main className="flex-grow max-w-6xl mx-auto p-4 font-sans w-full">
         {/* Header */}
         <div className="mb-6">
@@ -97,7 +97,7 @@ export default function ShoppingCart() {
                 <span>${total.toFixed(2)}</span>
               </div>
 
-              <button className="w-full bg-teal-500 hover:bg-teal-400 py-3 px-4 rounded-lg flex items-center justify-center font-medium">
+              <button className="w-full bg-teal-500 hover:bg-teal-400 py-4 px-4 rounded-lg flex items-center justify-center font-medium">
                 <span>Continuar a pagar</span>
                 <ArrowRight size={20} className="ml-2" />
               </button>

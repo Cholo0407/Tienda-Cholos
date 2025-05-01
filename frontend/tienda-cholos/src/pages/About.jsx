@@ -1,10 +1,12 @@
 import React from "react";
 import "../../styles/About.css";
 import zapatos from "../images/ZapatosLimpios.png";
+import Footer from "../components/Footer.jsx"
 
 const About = () => {
   return (
-    <div className="about-wrapper">
+    <div className="bg-white">
+    <div className="pt-[5rem]">
       <div className="about-full">
         <h2 className="about-title">Sobre nosotros</h2>
         <div className="about-header">
@@ -23,6 +25,7 @@ const About = () => {
       </div>
 
       <section className="about-box mission">
+        <div className="about-content">
         <h3>Nuestra misión</h3>
         <p>
           Cree una tienda en línea en la que los clientes a nivel nacional puedan ver y adquirir
@@ -30,9 +33,11 @@ const About = () => {
           con ellas y no de terceros. Pues es nuestra prioridad dar un sitio seguro de compra de
           zapatos auténticos a nuestros clientes.
         </p>
+        </div>
       </section>
 
       <section className="about-box vision">
+        <div className="about-content">
         <h3>Nuestra visión</h3>
         <p>
           Ser la tienda en línea líder en cuanto a ventas de zapatos originales en el país,
@@ -40,7 +45,10 @@ const About = () => {
           Nos proyectamos como la primera opción de los clientes amantes del mundo de los zapatos
           con nuestro stock siempre disponible y garantizado.
         </p>
+        </div>
       </section>
+    </div>
+    <Footer />
     </div>
   );
 };
