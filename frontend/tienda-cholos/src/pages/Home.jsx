@@ -5,32 +5,33 @@ import PorqueElegirnos from "../components/PorqueElegirnos";
 import EncuentraPar from "../components/EncuentraPar";
 import Footer from "../components/Footer";
 
-
 const Home = () => {
   return (
     <div className="main-home">
-      <div className="main-header">
-        <div className="header-content">
-          <h1>Cholo's</h1>
-          <p className="tagline">El estilo que pisa fuerte</p>
-          <p className="subtagline">Compra en nuestra tienda</p>
-          <button className="cta-button">Compra en nuestra tienda</button>
-        </div>
-        <div className="imagenes-separado">
-          <Imagenes />
-        </div>
+
+       {/* Encabezado principal con título, eslogan y botón */}
+    <div className="main-header">
+      <div className="header-content">
+        <h1>Cholo's</h1>
+        <p className="tagline">El estilo que pisa fuerte</p>
+        <button className="cta-button">Compra en nuestra tienda</button>
       </div>
 
-      <PorqueElegirnos /> 
-       
-
-      <EncuentraPar />
-
-      
-      <Footer />
-
-      
+      {/* Galería de imágenes al lado derecho */}
+      <div className="imagenes-separado">
+        <Imagenes />
+      </div>
     </div>
+
+    {/* Sección informativa: razones para elegir la tienda */}
+    <PorqueElegirnos />
+
+    {/* Sección promocional con botones y logotipos de marcas */}
+    <EncuentraPar />
+
+    {/* Pie de página con información legal y redes sociales */}
+    <Footer />
+  </div>
   );
 };
 
