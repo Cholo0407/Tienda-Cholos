@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+.text {
+  max-width: 1100px;
+}
+
 .about-full {
   max-width: 1200px;
   margin: 0 auto;
@@ -17,7 +21,7 @@
   font-size: 2.2rem;
   font-weight: bold;
   color: #0aa885;
-  margin: 3rem 0 2rem; 
+  margin: 3rem 0 2rem;
 }
 
 .about-header {
@@ -48,10 +52,7 @@
 }
 
 .about-box {
-  max-width: 1100px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border-radius: 10px;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -65,6 +66,15 @@
   background-color: #1f2937;
   color: #fff;
   text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.about-box.mission .about-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .about-box.vision {
@@ -74,12 +84,19 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+.about-box.vision .about-content{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
 .about-vision-text {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
   text-align: right;
-  margin-bottom: 3rem; 
+  margin-bottom: 3rem;
 }
 
 .about-vision-text h3 {
@@ -96,7 +113,7 @@
   max-width: 800px;
   margin-right: 0;
   margin-left: auto;
-  margin-bottom: 2rem; 
+  margin-bottom: 2rem;
   padding: 0 1rem;
   text-align: right;
 }
@@ -122,16 +139,19 @@
   background-color: #1f2937;
   color: #ffffff;
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 0;
   font-size: 1rem;
   line-height: 1.6;
   margin-top: 2rem;
+  width: 100%;
 }
 
 .about-vision-bottom p {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
   color: #ffffff;
   font-size: 1rem;
-  margin: 0;
 }
 
 /* RESPONSIVE */
@@ -168,6 +188,10 @@
     text-align: left;
   }
 
+  .about-box.mission .about-content {
+    padding: 2rem 1rem;
+  }
+
   .about-vision-text p {
     float: none;
     text-align: justify;
@@ -178,7 +202,11 @@
   }
 
   .about-vision-bottom {
-    padding: 1.5rem;
+    padding: 1.5rem 0;
     font-size: 0.95rem;
+  }
+
+  .about-vision-bottom p {
+    padding: 0 1rem;
   }
 }
