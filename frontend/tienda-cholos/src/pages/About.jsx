@@ -26,28 +26,34 @@ const About = () => {
         </div>
       </div>
 
-       {/* Sección que muestra la misión de la tienda */}
+
+      {/* Sección que muestra la misión de la tienda */}
       <section className="about-box mission">
-        <h3>Nuestra misión</h3>
-        <p>
-          Cree una tienda en línea en la que los clientes a nivel nacional puedan ver y adquirir
-          zapatos de las marcas más reconocidas directamente de las marcas por medio de acuerdos
-          con ellas y no de terceros. Pues es nuestra prioridad dar un sitio seguro de compra de
-          zapatos auténticos a nuestros clientes.
-        </p>
+        <div className="about-content">
+          <h3>Nuestra misión</h3>
+          <p>
+            Cree una tienda en línea en la que los clientes a nivel nacional puedan ver y adquirir
+            zapatos de las marcas más reconocidas directamente de las marcas por medio de acuerdos
+            con ellas y no de terceros. Pues es nuestra prioridad dar un sitio seguro de compra de
+            zapatos auténticos a nuestros clientes.
+          </p>
+        </div>
       </section>
 
-       {/* Sección que muestra la visión de la tienda e incluye una imagen ilustrativa */}
-      <section className="about-box vision with-image">
-        <h3>Nuestra visión</h3>
-        <p>
-          Ser la tienda en línea líder en cuanto a ventas de zapatos originales en el país,
-          reconocida por la confiabilidad, autenticidad y calidad de cada uno de nuestros pares.
-          Nos proyectamos como la primera opción de los clientes amantes del mundo de los zapatos
-          con nuestro stock siempre disponible y garantizado.
-        </p>
 
-         {/* Imagen decorativa bajo la visión */}
+      {/* Sección que muestra la visión de la tienda e incluye una imagen ilustrativa */}
+      <section className="about-box vision with-image">
+        <div className="about-content">
+          <h3>Nuestra visión</h3>
+          <p>
+            Ser la tienda en línea líder en cuanto a ventas de zapatos originales en el país,
+            reconocida por la confiabilidad, autenticidad y calidad de cada uno de nuestros pares.
+            Nos proyectamos como la primera opción de los clientes amantes del mundo de los zapatos
+            con nuestro stock siempre disponible y garantizado.
+          </p>
+        </div>
+
+        {/* Imagen decorativa bajo la visión */}
         <div className="about-vision-image">
           <img src={tiendaZapatos} alt="Tienda de zapatos" />
         </div>
@@ -66,3 +72,4 @@ const About = () => {
 };
 
 export default About;
+

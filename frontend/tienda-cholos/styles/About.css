@@ -114,6 +114,7 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 .about-vision-image img {
   width: 100%;
   display: block;
@@ -148,6 +149,13 @@
     padding: 0 1rem;
   }
 
+  .about-content {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
   .about-box {
     text-align: center;
   }
@@ -155,6 +163,12 @@
   .about-vision-text {
     text-align: center;
     float: none;
+  }
+
+  .about-box.mission {
+    background-color: #1f2937;
+    color: white;
+    text-align: left;
   }
 
   .about-vision-text p {

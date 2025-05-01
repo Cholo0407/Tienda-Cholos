@@ -7,7 +7,9 @@ import Product from './pages/product.jsx';
 import Nav from './components/Nav.jsx';
 import './App.css';
 import ContactForm from './pages/Contact.jsx'
-import ShoppingCart from './pages/cart.jsx'; 
+import ShoppingCart from './pages/cart.jsx'; // Asegúrate que esta ruta es correcta
+
+
 
 function App() {
   return (
