@@ -6,7 +6,8 @@ import Footer from "../components/Footer";
 
 const About = () => {
   return (
-    <div className="about-wrapper">
+    <div className="bg-white pt-[2rem]">
+    <div>
       {/* Contenedor principal del contenido de la sección "Sobre nosotros" */}
       <div className="about-full">
         <h2 className="about-title">Sobre nosotros</h2>
@@ -29,7 +30,7 @@ const About = () => {
 
       {/* Sección que muestra la misión de la tienda */}
       <section className="about-box mission">
-        <div className="about-content">
+        <div className="about-content text">
           <h3>Nuestra misión</h3>
           <p>
             Cree una tienda en línea en la que los clientes a nivel nacional puedan ver y adquirir
@@ -66,7 +67,8 @@ const About = () => {
         </div>
       </section>
 
-      <Footer />
+    </div>
+    <Footer />
     </div>
   );
 };
