@@ -1,95 +1,173 @@
 .about-wrapper {
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .about-full {
-    width: 100%;
-    background-color: white;
-    padding: 3rem 0;
-  }
-  
+  background-color: #ffffff;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.about-full {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.about-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #0aa885;
+  margin: 3rem 0 2rem; 
+}
+
+
+.about-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.about-image {
+  flex: 1 1 30%;
+  max-width: 280px;
+}
+
+
+.about-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+  flex: 1 1 55%;
+  font-size: 1rem;
+  line-height: 1.8;
+  text-align: justify;
+  color: #333;
+}
+
+.about-box {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.about-box h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.about-box.mission {
+  background-color: #1f2937;
+  color: #fff;
+  text-align: left;
+}
+
+.about-box.vision {
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  text-align: right;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.about-vision-text {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: right;
+  margin-bottom: 3rem; 
+}
+
+.about-vision-text h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.about-vision-text p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+  max-width: 800px;
+  margin-right: 0;
+  margin-left: auto;
+  margin-bottom: 2rem; 
+  padding: 0 1rem;
+  text-align: right;
+}
+
+
+.about-vision-image {
+  max-width: 700px;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.about-vision-image img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.about-vision-bottom {
+  background-color: #1f2937;
+  color: #ffffff;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: 2rem;
+}
+
+.about-vision-bottom p {
+  color: #ffffff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
   .about-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    flex-wrap: wrap;
-  }
-  
-  .about-title {
+    flex-direction: column;
     text-align: center;
-    font-size: 2.4rem;
-    color: #0aa885;
-    font-weight: 700;
-    margin-bottom: 2rem;
   }
-  
-  .about-image {
-    flex: 1;
-    max-width: 400px;
-  }
-  
-  .about-image img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
+
   .about-text {
-    flex: 2;
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #333;
     text-align: justify;
-    max-width: 700px;
+    padding: 0 1rem;
   }
-  
+
   .about-box {
-    max-width: 1100px;
-    margin: 3rem auto;
-    border-radius: 12px;
-    padding: 2rem;
-    box-sizing: border-box;
+    text-align: center;
   }
-  
-  .about-box h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+
+  .about-vision-text {
+    text-align: center;
+    float: none;
   }
-  
-  .about-box.mission {
-    background-color: #1f2937;
-    color: white;
-    text-align: left;
+
+  .about-vision-text p {
+    float: none;
+    text-align: justify;
   }
-  
-  .about-box.vision {
-    background-color: #f7f7f7;
-    color: #1a1a1a;
-    text-align: right;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  .about-title {
+    font-size: 1.8rem;
   }
-  
-  @media (max-width: 768px) {
-    .about-header {
-      flex-direction: column;
-      text-align: center;
-      padding: 0 1rem;
-    }
-  
-    .about-text {
-      text-align: justify;
-    }
-  
-    .about-box {
-      text-align: left !important;
-    }
+
+  .about-vision-bottom {
+    padding: 1.5rem;
+    font-size: 0.95rem;
   }
-  
+}

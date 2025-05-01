@@ -4,8 +4,12 @@ import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer"> {/* Contenedor principal del footer */}
+
+    {/* Sección principal con 3 columnas de información */}
       <div className="footer-container">
+
+         {/* Columna 1: Información de contacto y redes sociales */}
         <div className="footer-column">
           <h4>Cholo's</h4>
           <p><strong>Dirección:</strong></p>
@@ -14,16 +18,22 @@ const Footer = () => {
           <p><strong>Contacto:</strong></p>
           <p>1800 123 6547</p>
           <p>info@cholosfootwear.com</p>
+
+         {/* Íconos de redes sociales */}
           <div className="footer-social">
             <FaFacebookF />
             <FaInstagram />
             <FaXTwitter />
           </div>
         </div>
+
+        {/* Columna 2: Enlace informativo de la tienda */}
         <div className="footer-column">
           <h4>Tienda</h4>
           <p>Sobre nosotros</p>
         </div>
+
+         {/* Columna 3: Políticas legales */}
         <div className="footer-column">
           <h4>Política de privacidad</h4>
           <p>Términos y condiciones</p>
