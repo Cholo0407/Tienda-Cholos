@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ArrowRight, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import pumarsx from '../images/pumarsx.png';
+import vans from '../images/vans.avif';
+import nb from '../images/newbalance.jpg';
+
 
 export default function ShoppingCart() {
+  const navigate = useNavigate();
   const initialProducts = [
-    { id: 1, name: 'Puma RS-X', price: 193, image: '/api/placeholder/60/60', quantity: 1 },
-    { id: 2, name: 'Vans old school', price: 99, image: '/api/placeholder/60/60', quantity: 1 },
-    { id: 3, name: 'New Balance 574', price: 59, image: '/api/placeholder/60/60', quantity: 1 }
+    { id: 1, name: 'Puma RS-X', price: 193, image: pumarsx, quantity: 1 },
+    { id: 2, name: 'Vans old school', price: 99, image: vans, quantity: 1 },
+    { id: 3, name: 'New Balance 574', price: 59, image: nb, quantity: 1 }
   ];
 
   const [products, setProducts] = useState(initialProducts);
@@ -20,9 +26,30 @@ export default function ShoppingCart() {
     );
   };
 
+  const removeProduct = (id) => {
+    setProducts(prev => prev.filter(p => p.id !== id));
+  };
+
   const subtotal = products.reduce((sum, product) => sum + product.price * product.quantity, 0);
   const serviceCharge = 0.20;
-  const total = subtotal + serviceCharge;
+  const shippingFee = 2.50;
+  const total = subtotal + serviceCharge + shippingFee;
+
+  const handleContinue = (e) => {
+    e.preventDefault();
+    // Pass cart data to checkout page
+    navigate('/cart2', { 
+      state: { 
+        cartData: {
+          products,
+          subtotal,
+          serviceCharge,
+          shippingFee,
+          total
+        } 
+      } 
+    });
+  };
 
   return (
     <div className="flex flex-col min-h-screen pt-[5rem] bg-white"> 
@@ -70,7 +97,10 @@ export default function ShoppingCart() {
                   <p className="font-medium">${product.price * product.quantity}</p>
                 </div>
 
-                <button className="text-gray-400 hover:text-red-500">
+                <button 
+                  className="text-gray-400 hover:text-red-500"
+                  onClick={() => removeProduct(product.id)}
+                >
                   <Trash2 size={20} />
                 </button>
               </div>
@@ -87,9 +117,14 @@ export default function ShoppingCart() {
                 <span>${subtotal.toFixed(2)}</span>
               </div>
 
-              <div className="flex justify-between mb-6">
+              <div className="mb-2 flex justify-between">
                 <span>Tarifa de servicio</span>
                 <span>${serviceCharge.toFixed(2)}</span>
+              </div>
+
+              <div className="mb-6 flex justify-between">
+                <span>Envío</span>
+                <span>${shippingFee.toFixed(2)}</span>
               </div>
 
               <div className="border-t border-teal-500 pt-4 mb-6 flex justify-between font-medium">
@@ -97,7 +132,10 @@ export default function ShoppingCart() {
                 <span>${total.toFixed(2)}</span>
               </div>
 
-              <button className="w-full bg-teal-500 hover:bg-teal-400 py-4 px-4 rounded-lg flex items-center justify-center font-medium">
+              <button 
+                onClick={handleContinue}
+                className="w-full bg-teal-500 hover:bg-teal-400 py-4 px-4 rounded-lg flex items-center justify-center font-medium"
+              >
                 <span>Continuar a pagar</span>
                 <ArrowRight size={20} className="ml-2" />
               </button>
