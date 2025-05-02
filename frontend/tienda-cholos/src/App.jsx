@@ -10,6 +10,7 @@ import CheckoutForm from './pages/cart2.jsx'
 import ContactForm from './pages/Contact.jsx'
 import ShoppingCart from './pages/cart.jsx'; 
 import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
 
 
 
@@ -29,6 +30,8 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/cart2" element={<CheckoutForm />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
 
       </Routes>
     </Router>
