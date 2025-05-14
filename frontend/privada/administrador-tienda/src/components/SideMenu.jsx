@@ -5,7 +5,7 @@ import logo from '../images/logo.jpg'; // ✅ Importa la imagen
 
 const SideMenu = () => {
   const menuItems = [
-    { id: 'dashboard', icon: <LayoutDashboard className="w-6 h-6" />, text: 'DASHBOARD', route: '/' },
+    { id: 'dashboard', icon: <LayoutDashboard className="w-6 h-6" />, text: 'DASHBOARD', route: '/dashboard' },
     { id: 'products', icon: <Package className="w-6 h-6" />, text: 'PRODUCTOS', route: '/products' },
     { id: 'clients', icon: <Users className="w-6 h-6" />, text: 'CLIENTES', route: '/customers' },
     { id: 'admins', icon: <ShieldCheck className="w-6 h-6" />, text: 'ADMINS', route: '/admins' },
