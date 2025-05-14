@@ -1,57 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import TextBox from "../components/TextBox";
+import Logo from "../images/logo.jpg";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Aquí iría tu lógica de autenticación
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const handleLogin = () => {
+    alert(`Correo: ${email}\nContraseña: ${password}`);
+    navigate("/dashboard");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 mb-2">
-              Correo electrónico
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-gray-700 mb-2">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-          >
-            Iniciar Sesión
-          </button>
-        </form>
-      </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white font-poppins">
+      <img src={Logo} alt="Cholos Logo" className="w-40 mb-6" />
+      <h2 className="text-2xl font-bold mb-1">INICIO DE SESIÓN</h2>
+      <span className="text-gray-500 mb-6">Administrador</span>
+
+      <form className="w-full max-w-sm flex flex-col gap-4">
+        <div className="mb-2">
+          <label className="block text-gray-700 mb-1 font-medium">Correo</label>
+          <TextBox
+            type="text"
+            placeholder="Introduce tu correo"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="block text-gray-700 mb-1 font-medium">Contraseña</label>
+          <TextBox
+            type="password"
+            placeholder="********"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center justify-between text-sm text-gray-600">
+          <label className="flex items-center">
+            <input type="checkbox" className="mr-1" />
+            Recordar usuario
+          </label>
+          <a href="/recovery" className="hover:underline">Recuperar contraseña</a>
+        </div>
+        <Button text="Iniciar sesión" onClick={handleLogin} />
+      </form>
+
+      <a href="#" className="mt-6 text-gray-500 text-sm hover:underline">
+        Términos y condiciones
+      </a>
     </div>
   );
 };
 
-export default Login;
+export default LoginPage;
