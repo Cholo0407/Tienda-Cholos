@@ -8,14 +8,17 @@ import Nav from './components/Nav.jsx';
 import './App.css';
 import CheckoutForm from './pages/cart2.jsx'
 import ContactForm from './pages/Contact.jsx'
-import ShoppingCart from './pages/cart.jsx'; // Asegúrate que esta ruta es correcta
+import ShoppingCart from './pages/cart.jsx'; 
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
 
 
 
 function App() {
   return (
     <Router>
-      <Nav />
+      {/* Este código revisa que no se renderize el navbar si la ruta es /login, register*/}
+      {(window.location.pathname !== "/login" && window.location.pathname !== "/register") && <Nav />}
       <Routes>
       <Route path="/about" element={<About />} />
         <Route path="/shoes" element={<Shoes />} />
@@ -24,8 +27,12 @@ function App() {
         <Route path="/cart" element={<ShoppingCart />} />
 
         <Route path="/shoes" element={<Shoes />} />
-        <Route path="/product" element={<Product />} /> {/* Esta es la ruta dinámica */}
+        <Route path="/product" element={<Product />} />
         <Route path="/cart2" element={<CheckoutForm />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+
       </Routes>
     </Router>
 

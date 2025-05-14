@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import paypal from '../images/Paypal-logo-2022.png'
 
 // Datos de códigos postales por departamento
 const codigosPostales = {
@@ -233,17 +234,17 @@ const CheckoutForm = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-4 border border-gray-300 rounded-lg bg-gray-200">
                   <div className="flex items-center">
-                    <img src="/api/placeholder/80/30" alt="PayPal" className="h-6 mr-3" />
+                    <img src={paypal} alt="PayPal" className="h-6 mr-3" />
                     <span className="font-medium">Visa ending in *32</span>
                   </div>
-                  <a href="#" className="text-sm font-medium">Editar</a>
+                  <a className="text-sm font-medium">Editar</a>
                 </div>
                 
                 <div className="flex justify-between items-center p-4 border border-gray-300 rounded-lg">
                   <div className="flex items-center">
                     <span className="font-medium">Visa ending in *52</span>
                   </div>
-                  <a href="#" className="text-sm font-medium text-teal-600">Editar</a>
+                  <a className="text-sm font-medium text-teal-600">Editar</a>
                 </div>
               </div>
             </div>
