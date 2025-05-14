@@ -9,13 +9,14 @@ import converse from "../images/converse.png";
 
 const EncuentraPar = () => {
   return (
-    <section className="encuentra-par">
+    <section className="encuentra-par"> {/* Contenedor principal de la sección */}
+     {/* Contenido de texto y botones */}
       <div className="contenido">
         <div className="texto">
           <span className="subtitulo">Tu estilo, Tu manera</span>
           <h2>Encuentra tu par perfecto</h2>
         </div>
-        <div className="acciones">
+        <div className="acciones"> {/* Bloque con descripción y botones */}
           <p>En Cholo's creemos en zapatos que reflejen tu personalidad y estilo de vida.</p>
           <div className="botones">
             <button className="catalogo">Ver catálogo</button>
@@ -23,7 +24,8 @@ const EncuentraPar = () => {
           </div>
         </div>
       </div>
-
+      <br />
+       {/* Bloque de logotipos de marcas */}
       <div className="logos">
        <img src={nike} alt="Nike" />
        <img src={adidas} alt="Adidas" />
@@ -31,6 +33,7 @@ const EncuentraPar = () => {
        <img src={newbalance} alt="New Balance" />
        <img src={converse} alt="Converse" />
       </div>
+      <br />
     </section>
   );
 };

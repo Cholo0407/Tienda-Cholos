@@ -31,22 +31,24 @@ const PorqueElegirnos = () => {
     ];
   
     return (
-      <section className="porque-elegirnos">
+      <section className="porque-elegirnos"> {/* Contenedor principal de la sección */}
         <h2>¿Por qué elegirnos?</h2>
         <p className="descripcion">Tenis de calidad para cada paso de tu viaje.</p>
         <div className="razones-grid">
+          {/* Mapeo de cada razón en su propio bloque visual */}
           {razones.map((item, idx) => (
             <div className="razon-horizontal" key={idx}>
-              <div className="icono-container">
+              <div className="icono-container"> {/* Contenedor del ícono */}
                 <FaRegCommentDots className="icono" />
               </div>
-              <div className="texto">
+              <div className="texto"> {/* Contenedor del texto de cada razón */}
                 <h3>{item.titulo}</h3>
                 <p>{item.descripcion}</p>
               </div>
             </div>
           ))}
         </div>
+        <br /><br /> 
       </section>
     );
   };
