@@ -4,10 +4,13 @@ import SideMenu from './components/SideMenu.jsx';
 import ShoeStore from './pages/Products.jsx';
 import Login from './pages/login.jsx'
 import Dashboard from './pages/dashboard.jsx'
+import Recovery from './pages/PasswordRecovery/passwordRecovery.jsx'
+import VerifyCode from './pages/PasswordRecovery/verifyCode.jsx';
+import NewPassword from './pages/PasswordRecovery/newPassword.jsx'
 
 function AppContent() {
   const location = useLocation();
-  const hiddenRoutes = ['/', '/register'];
+  const hiddenRoutes = ['/login', '/register', '/recovery', '/verifyCode', '/newPassword'];
   const shouldShowMenu = !hiddenRoutes.includes(location.pathname);
 
   return (
@@ -15,13 +18,20 @@ function AppContent() {
       {shouldShowMenu && <SideMenu />}
       <div className="flex-1">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/products" element={<ShoeStore />} />
           <Route path="/customers" element={<div>Clientes</div>} />
           <Route path="/admins" element={<div>Admins</div>} />
           <Route path="/models" element={<div>Modelos</div>} />
           <Route path="/register" element={<div>Register</div>} />
+
+          <Route path="/recovery" element={<Recovery />} />
+          <Route path="/verifyCode" element={<VerifyCode />} />
+          <Route path="/newPassword" element={<NewPassword />} />
+
+
+
         </Routes>
       </div>
     </div>

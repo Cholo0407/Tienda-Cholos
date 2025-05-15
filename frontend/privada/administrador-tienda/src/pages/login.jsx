@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
+import PasswordBox from "../components/PasswordTextBox";
 import Logo from "../images/logo.jpg";
 
-const LoginPage = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -31,12 +32,10 @@ const LoginPage = () => {
         </div>
         <div className="mb-3">
           <label className="block text-gray-700 mb-1 font-medium">Contraseña</label>
-          <TextBox
-            type="password"
+          <PasswordBox 
             placeholder="********"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="flex items-center justify-between text-sm text-gray-600">
           <label className="flex items-center">
@@ -55,4 +54,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
