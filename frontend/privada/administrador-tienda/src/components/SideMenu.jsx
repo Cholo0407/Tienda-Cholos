@@ -48,7 +48,7 @@ const SideMenu = () => {
 
       {/* Logout Button */}
       <div className="p-4 border-t border-gray-200">
-        <NavLink to="/login">
+        <NavLink to="/">
           <div className="flex items-center pl-6 py-3 w-full text-gray-500 hover:text-red-500 transition-colors cursor-pointer">
             <LogOut className="w-6 h-6 mr-4" />
             <span className="text-sm tracking-wider">Cerrar Sesión</span>

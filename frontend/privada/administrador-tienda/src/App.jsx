@@ -7,7 +7,7 @@ import Dashboard from './pages/dashboard.jsx'
 
 function AppContent() {
   const location = useLocation();
-  const hiddenRoutes = ['/login', '/register'];
+  const hiddenRoutes = ['/', '/register'];
   const shouldShowMenu = !hiddenRoutes.includes(location.pathname);
 
   return (
@@ -15,7 +15,7 @@ function AppContent() {
       {shouldShowMenu && <SideMenu />}
       <div className="flex-1">
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/products" element={<ShoeStore />} />
           <Route path="/customers" element={<div>Clientes</div>} />
