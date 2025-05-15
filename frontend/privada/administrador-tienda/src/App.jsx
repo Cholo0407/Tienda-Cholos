@@ -4,6 +4,7 @@ import SideMenu from './components/SideMenu.jsx';
 import ShoeStore from './pages/Products.jsx';
 import Login from './pages/login.jsx'
 import Dashboard from './pages/dashboard.jsx'
+import ProductForm from './pages/AgregarZapato.jsx'
 
 function AppContent() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function AppContent() {
           <Route path="/admins" element={<div>Admins</div>} />
           <Route path="/models" element={<div>Modelos</div>} />
           <Route path="/register" element={<div>Register</div>} />
+          <Route path="/AgregarZapaato" element={<ProductForm /> } />
         </Routes>
       </div>
     </div>

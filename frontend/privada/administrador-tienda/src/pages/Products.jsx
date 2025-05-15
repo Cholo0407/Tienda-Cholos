@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Nike from '../images/Nike.jpg';
 import Samba from '../images/Samba.jpg';
 import vans from '../images/vans.jpg';
 
 export default function ShoeStore() {
+  const navigate = useNavigate(); // para redirección
+
   const [shoes, setShoes] = useState([
     {
       id: 1,
@@ -46,7 +49,7 @@ export default function ShoeStore() {
       stock: 14,
       image: Samba
     },
-     {
+    {
       id: 6,
       name: 'Adidas Samba OG',
       color: 'blanco',
@@ -54,7 +57,7 @@ export default function ShoeStore() {
       stock: 14,
       image: Samba
     },
-     {
+    {
       id: 7,
       name: 'Adidas Samba OG',
       color: 'blanco',
@@ -62,7 +65,7 @@ export default function ShoeStore() {
       stock: 14,
       image: Samba
     },
-     {
+    {
       id: 8,
       name: 'Adidas Samba OG',
       color: 'blanco',
@@ -70,14 +73,14 @@ export default function ShoeStore() {
       stock: 14,
       image: Samba
     },
-     {
+    {
       id: 9,
       name: 'Adidas Samba OG',
       color: 'blanco',
       price: 80.0,
       stock: 14,
       image: Samba
-    }     
+    }
   ]);
 
   const handleEdit = (shoe) => {
@@ -112,52 +115,12 @@ export default function ShoeStore() {
     });
   };
 
-  const handleAddShoe = async () => {
-    const { value: formValues } = await Swal.fire({
-      title: 'Agregar nuevo zapato',
-      html:
-        '<input id="swal-name" class="swal2-input" placeholder="Nombre del zapato">' +
-        '<input id="swal-color" class="swal2-input" placeholder="Color">' +
-        '<input id="swal-price" type="number" class="swal2-input" placeholder="Precio">' +
-        '<input id="swal-stock" type="number" class="swal2-input" placeholder="Stock">',
-      focusConfirm: false,
-      showCancelButton: true,
-      confirmButtonText: 'Agregar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        const name = document.getElementById('swal-name').value;
-        const color = document.getElementById('swal-color').value;
-        const price = parseFloat(document.getElementById('swal-price').value);
-        const stock = parseInt(document.getElementById('swal-stock').value);
-
-        if (!name || !color || isNaN(price) || isNaN(stock)) {
-          Swal.showValidationMessage('Por favor completa todos los campos correctamente.');
-          return false;
-        }
-
-        return { name, color, price, stock };
-      }
+  const handleContinue = (e) => {
+    e.preventDefault();
+    // Pass cart data to checkout page
+    navigate('AgregarZapato', { 
+     
     });
-
-    if (formValues) {
-      const newShoe = {
-        id: Date.now(),
-        name: formValues.name,
-        color: formValues.color,
-        price: formValues.price,
-        stock: formValues.stock,
-        image: vans // Usa una imagen por defecto o ajusta según el tipo
-      };
-
-      setShoes((prev) => [...prev, newShoe]);
-
-      Swal.fire({
-        icon: 'success',
-        title: '¡Agregado!',
-        text: 'El nuevo zapato ha sido agregado correctamente.',
-        confirmButtonText: 'Aceptar'
-      });
-    }
   };
 
   return (
@@ -165,9 +128,9 @@ export default function ShoeStore() {
       {/* Header */}
       <header className="bg-white p-4 border-b border-gray-100">
         <div className="w-full flex justify-between items-center px-4">
-          {/* Botón de Agregar Zapato (con el ícono de más) */}
+          {/* Botón de Agregar Zapato */}
           <button
-            onClick={handleAddShoe}
+            onClick={handleContinue}
             className="bg-black text-white p-2 rounded-full hover:bg-gray-800 transition-colors"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
