@@ -10,7 +10,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    alert(`Correo: ${email}\nContraseña: ${password}`);
     navigate("/dashboard");
   };
 
