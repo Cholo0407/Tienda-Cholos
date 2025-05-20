@@ -15,16 +15,17 @@ function AppContent() {
     <div className="flex">
       {shouldShowMenu && <SideMenu />}
       <div className="flex-1">
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/products" element={<ShoeStore />} />
-          <Route path="/customers" element={<div>Clientes</div>} />
-          <Route path="/admins" element={<div>Admins</div>} />
-          <Route path="/models" element={<div>Modelos</div>} />
-          <Route path="/register" element={<div>Register</div>} />
-          <Route path="/AgregarZapaato" element={<ProductForm /> } />
-        </Routes>
+<Routes>
+  <Route path="/login" element={<Login />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/products" element={<ShoeStore />} />
+  <Route path="/products/AgregarZapato" element={<ProductForm />} />
+  <Route path="/customers" element={<div>Clientes</div>} />
+  <Route path="/admins" element={<div>Admins</div>} />
+  <Route path="/models" element={<div>Modelos</div>} />
+  <Route path="/register" element={<div>Register</div>} />
+</Routes>
+
       </div>
     </div>
   );
