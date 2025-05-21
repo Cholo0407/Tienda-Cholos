@@ -4,6 +4,7 @@ import SideMenu from './components/SideMenu.jsx';
 import ShoeStore from './pages/Products.jsx';
 import Login from './pages/login.jsx'
 import Dashboard from './pages/dashboard.jsx'
+import ProductForm from './pages/AgregarZapato.jsx'
 
 function AppContent() {
   const location = useLocation();
@@ -14,15 +15,18 @@ function AppContent() {
     <div className="flex">
       {shouldShowMenu && <SideMenu />}
       <div className="flex-1">
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/products" element={<ShoeStore />} />
-          <Route path="/customers" element={<div>Clientes</div>} />
-          <Route path="/admins" element={<div>Admins</div>} />
-          <Route path="/models" element={<div>Modelos</div>} />
-          <Route path="/register" element={<div>Register</div>} />
-        </Routes>
+       
+<Routes>
+  <Route path="/login" element={<Login />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/products" element={<ShoeStore />} />
+  <Route path="/products/AgregarZapato" element={<ProductForm />} />
+  <Route path="/customers" element={<div>Clientes</div>} />
+  <Route path="/admins" element={<div>Admins</div>} />
+  <Route path="/models" element={<div>Modelos</div>} />
+  <Route path="/register" element={<div>Register</div>} />
+</Routes>
+
       </div>
     </div>
   );
