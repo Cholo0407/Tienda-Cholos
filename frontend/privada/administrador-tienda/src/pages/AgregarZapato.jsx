@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import { ChevronDown, AlertCircle, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 // Modelos por marca
 const modelosPorMarca = {
@@ -12,11 +14,10 @@ const modelosPorMarca = {
 };
 
 export default function AgregarProducto() {
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [imagen, setImagen] = useState(null);
   const [marcaSeleccionada, setMarcaSeleccionada] = useState("Nike");
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   
   const handleImageClick = () => {
     fileInputRef.current.click();
@@ -30,20 +31,33 @@ export default function AgregarProducto() {
   
   const handleGuardar = (e) => {
     e.preventDefault();
-    setShowConfirmDialog(true);
+    
+    // Using SweetAlert2 for confirmation dialog
+    Swal.fire({
+      title: '¿Confirmar?',
+      text: '¿Deseas agregar este producto?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Show success message
+        Swal.fire({
+          title: '¡Producto agregado!',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
   };
   
-  const handleConfirm = () => {
-    setShowConfirmDialog(false);
-    setShowSuccessDialog(true);
-  };
-  
-  const handleCancel = () => {
-    setShowConfirmDialog(false);
-  };
-  
-  const handleSuccessClose = () => {
-    setShowSuccessDialog(false);
+  const handleVolver = () => {
+    // Navigate back to the products page
+    navigate("/products");
   };
   
   const handleMarcaChange = (e) => {
@@ -54,7 +68,10 @@ export default function AgregarProducto() {
     <div className="bg-gray-100 min-h-screen w-full p-4">
       {/* Header */}
       <div className="flex items-center mb-6">
-        <button className="flex items-center text-gray-600">
+        <button 
+          onClick={handleVolver}
+          className="flex items-center text-gray-600 hover:text-gray-800"
+        >
           <ChevronDown className="transform rotate-90" size={20} />
           <span className="ml-1 text-sm">Volver al menu principal</span>
         </button>
@@ -216,60 +233,13 @@ export default function AgregarProducto() {
           <div className="col-span-1 mt-4">
             <button 
               onClick={handleGuardar}
-              className="bg-teal-500 text-white rounded py-2 px-4 w-full text-sm"
+              className="bg-teal-500 text-white rounded py-2 px-4 w-full text-sm hover:bg-teal-600"
             >
               Guardar información
             </button>
           </div>
         </div>
       </div>
-      
-      {/* Confirm Dialog */}
-      {showConfirmDialog && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg p-6 max-w-sm w-full">
-            <div className="flex justify-center mb-4">
-              <AlertCircle size={48} className="text-blue-500" />
-            </div>
-            <h3 className="text-xl font-medium text-center mb-2">¿Confirmar?</h3>
-            <p className="text-center mb-6">¿Deseas agregar este producto?</p>
-            <div className="flex justify-center gap-4">
-              <button 
-                onClick={handleCancel}
-                className="bg-gray-200 text-gray-800 rounded py-2 px-4 w-24"
-              >
-                No
-              </button>
-              <button 
-                onClick={handleConfirm}
-                className="bg-blue-500 text-white rounded py-2 px-4 w-24"
-              >
-                Sí
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Success Dialog */}
-      {showSuccessDialog && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg p-6 max-w-sm w-full">
-            <div className="flex justify-center mb-4">
-              <CheckCircle size={48} className="text-green-500" />
-            </div>
-            <h3 className="text-xl font-medium text-center mb-6">¡Producto agregado!</h3>
-            <div className="flex justify-center">
-              <button 
-                onClick={handleSuccessClose}
-                className="bg-blue-500 text-white rounded py-2 px-4 w-24"
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
