@@ -8,6 +8,7 @@ import ProductForm from './pages/AgregarZapato.jsx'
 import Recovery from './pages/PasswordRecovery/passwordRecovery.jsx'
 import VerifyCode from './pages/PasswordRecovery/verifyCode.jsx';
 import NewPassword from './pages/PasswordRecovery/newPassword.jsx'
+import Clientes from './pages/Clientes.jsx'
 
 function AppContent() {
   const location = useLocation();
@@ -23,7 +24,7 @@ function AppContent() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/products" element={<ShoeStore />} />
           <Route path="/products/AgregarZapato" element={<ProductForm />}/>
-          <Route path="/customers" element={<div>Clientes</div>} />
+          <Route path="/customers" element={<Clientes/>} />
           <Route path="/admins" element={<div>Admins</div>} />
           <Route path="/models" element={<div>Modelos</div>} />
           <Route path="/register" element={<div>Register</div>} />
