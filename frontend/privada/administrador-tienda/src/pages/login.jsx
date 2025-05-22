@@ -2,16 +2,38 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
+import { useAuth } from "../Context/AuthToken";
+import { Toaster, toast } from "react-hot-toast";
 import PasswordBox from "../components/PasswordTextBox";
 import Logo from "../images/logo.jpg";
 
 const Login = () => {
+  const { login } = useAuth();  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    navigate("/dashboard");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!email || !password) {
+      toast.error("Por favor, completa todos los campos.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Por favor, ingresa un correo electrónico válido.");
+      return;
+    }
+
+    const success = await login(email, password);  
+    if (success) {
+      toast.success("Inicio de sesión exitoso.");
+      navigate("/dashboard"); 
+    } else {
+      toast.error("Credenciales incorrectas. Por favor, intenta de nuevo.");
+    }
   };
 
   return (
@@ -20,7 +42,7 @@ const Login = () => {
       <h2 className="text-2xl font-bold mb-1">INICIO DE SESIÓN</h2>
       <span className="text-gray-500 mb-6">Administrador</span>
 
-      <form className="w-full max-w-sm flex flex-col gap-4">
+      <form className="w-full max-w-sm flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="mb-2">
           <label className="block text-gray-700 mb-1 font-medium">Correo</label>
           <TextBox
@@ -44,7 +66,7 @@ const Login = () => {
           </label>
           <a href="/recovery" className="hover:underline">Recuperar contraseña</a>
         </div>
-        <Button text="Iniciar sesión" onClick={handleLogin} />
+        <Button text="Iniciar sesión" onClick={handleSubmit} />
       </form>
 
       <a href="#" className="mt-6 text-gray-500 text-sm hover:underline">
