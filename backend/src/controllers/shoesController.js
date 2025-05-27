@@ -1,6 +1,19 @@
 const shoessController = {};
 import shoesModel from "../models/shoes.js";
+import { v2 as cloudinary } from "cloudinary";
+import { config } from "../config.js";
 
+console.log("Cloudinary config:", config.cloudinary);
+
+cloudinary.config({
+  cloud_name: config.cloudinary.cloudinary_name,
+    api_key: config.cloudinary.cloudinary_api_key,
+    api_secret: config.cloudinary.cloudinary_api_secret,
+});
+
+
+
+ 
 //select
 shoessController.getshoes = async (req, res) => {
     const shoes = await shoesModel.find();
@@ -10,8 +23,16 @@ shoessController.getshoes = async (req, res) => {
 
 //insert
 shoessController.createshoes = async (req, res) => {
-    const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, images, sale } = req.body;
+    const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, sale } = req.body;
 
+     let img="";
+     if(req.file){  
+        const resul = await cloudinary.uploader.upload(req.file.path,{
+            folder: "public",
+            allowed_formats: ["png","jpg","jpeg"],
+        });
+        img = resul.secure_url;
+     }
     const newshoes = new shoesModel({
         name,
         description,
@@ -23,7 +44,7 @@ shoessController.createshoes = async (req, res) => {
         gender,
         releaseDate,
         colors,
-        images,
+        img,
         sale
     });
 
@@ -44,8 +65,16 @@ shoessController.deletedshoes = async (req, res) => {
 
 //update
 shoessController.updateshoes = async (req, res) => {
-    const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, images, sale } = req.body;
+    const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, sale } = req.body;
 
+    let img="";
+     if(req.file){  
+        const resul = await cloudinary.uploader.upload(req.file.path,{
+            folder: "public",
+            allowed_formats: ["png","jpg","jpeg"],
+        });
+        img = resul.secure_url;
+     }
     await shoesModel.findByIdAndUpdate(
         req.params.id,
         {
@@ -59,7 +88,7 @@ shoessController.updateshoes = async (req, res) => {
             gender,
             releaseDate,
             colors,
-            images,
+            img,
             sale
         },
         { new: true }

@@ -62,14 +62,12 @@ const shoeSchema = new Schema({
         required: [true, "El color es obligatorio"],
     },
     images: [{
-        type: String, 
-        required: [true, "Las imágenes son obligatorias"],
+    type: String,
+    required: [true, "La imagen es obligatoria"],
     }],
     sale: {
         type: Number,
-        default: 0,
-        min: [0, "El descuento no puede ser negativo"],
-        max: [100, "El descuento no puede ser mayor a 100"],
+        default: 0
     },
 }, {
     timestamps: true, 
