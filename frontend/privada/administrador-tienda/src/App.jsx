@@ -10,6 +10,9 @@ import VerifyCode from './pages/PasswordRecovery/verifyCode.jsx';
 import NewPassword from './pages/PasswordRecovery/newPassword.jsx';
 import Clientes from './pages/Clientes.jsx';
 import Admins from './pages/Admins.jsx';
+import AgregarAdministrador from './pages/AgregarAdministrador.jsx';
+import Models from './pages/Models.jsx';
+import AgregarModels from './pages/AgregarModels.jsx';
 import PrivateRoute from './components/PrivateRoutes/PrivateRoutes.jsx';
 import { AuthProvider } from './Context/AuthToken.jsx';
 
@@ -39,7 +42,9 @@ function AppContent() {
             <Route path="/products/AgregarZapato" element={<ProductForm />} />
             <Route path="/customers" element={<Clientes />} />
             <Route path="/admins" element={<Admins />} />
-            <Route path="/models" element={<div>Modelos</div>} />
+            <Route path="/administradores/crear" element={<AgregarAdministrador />} /> 
+            <Route path="/models" element={<Models />} />
+            <Route path="/models/create" element={<AgregarModels />} />
             <Route path="/register" element={<div>Register</div>} />
           </Route>
         </Routes>
