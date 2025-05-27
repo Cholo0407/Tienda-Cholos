@@ -1,27 +1,50 @@
-import React from 'react';
+// Dashboard.jsx
+import React from "react";
+import StatCard from "../components/dashboardComponents/StatCard";
+import ActiveCard from "../components/dashboardComponents/ActiveCard";
+import ChartCard from "../components/dashboardComponents/ChartCard";
+import { FaUsers, FaTag, FaChartLine } from "react-icons/fa";
+
+const stats = [
+  {
+    title: "Total de Clientes",
+    value: "650",
+    subtitle: "↑ 15% este mes",
+    icon: <FaUsers className="text-emerald-500 text-3xl" />,
+  },
+  {
+    title: "Marcas registradas",
+    value: "8",
+    subtitle: "Noticias de esta semana",
+    icon: <FaTag className="text-emerald-500 text-3xl" />,
+  },
+  {
+    title: "Activos Ahora",
+    value: "189",
+    subtitle: "Usuarios conectados",
+    icon: <FaChartLine className="text-emerald-500 text-3xl" />,
+  },
+];
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen p-8 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6">Bienvenido al Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Tarjeta 1 */}
-        <div className="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
-          <h2 className="text-xl font-semibold mb-2">Usuarios Activos</h2>
-          <p className="text-gray-600">124 usuarios registrados este mes.</p>
-        </div>
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4 text-black">Hola de nuevo 👋🏾</h1>
 
-        {/* Tarjeta 2 */}
-        <div className="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
-          <h2 className="text-xl font-semibold mb-2">Pedidos</h2>
-          <p className="text-gray-600">48 pedidos procesados esta semana.</p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+        {stats.map((stat, i) => (
+          <StatCard key={i} {...stat} />
+        ))}
+      </div>
 
-        {/* Tarjeta 3 */}
-        <div className="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
-          <h2 className="text-xl font-semibold mb-2">Visitas</h2>
-          <p className="text-gray-600">3500 visitas en el sitio web.</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 col-span-2">
+          <ActiveCard />
+          <ActiveCard />
+          <ActiveCard />
+          <ActiveCard />
         </div>
+        <ChartCard />
       </div>
     </div>
   );

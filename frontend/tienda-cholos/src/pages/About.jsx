@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/About.css";
 import zapatos from "../images/ZapatosLimpios.png";
 import tiendaZapatos from "../images/Pasillo.png";
-import Footer from "../components/Footer.jsx";
+import Footer from "../components/Footer";
 
 const About = () => {
   return (
@@ -27,6 +27,7 @@ const About = () => {
         </div>
       </div>
 
+
       {/* Sección que muestra la misión de la tienda */}
       <section className="about-box mission">
         <div className="about-content text">
@@ -39,6 +40,7 @@ const About = () => {
           </p>
         </div>
       </section>
+
 
       {/* Sección que muestra la visión de la tienda e incluye una imagen ilustrativa */}
       <section className="about-box vision with-image">
