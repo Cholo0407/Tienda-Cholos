@@ -6,9 +6,17 @@ import customerRoute from "./src/routes/customer.js"
 import saleDetailsRoutes from "./src/routes/saleDetails.js"
 import salesDetails from "./src/routes/sales.js"
 import brandsRoute from "./src/routes/brands.js"
+import cors from "cors"
 
 
 const app = express();
+
+app.use(
+    cors({
+      origin: "http://localhost:5173", 
+      credentials: true, 
+    })
+  );
 
 app.use(express.json());
 app.use("/api/models",modelsRoutes);
