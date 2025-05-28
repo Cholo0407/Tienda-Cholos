@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 
 export const config = {
   db: {
-    URI: process.env.DB_URI || "mongodb+srv://fito:WYBS0lQxFDP31IYm@sitiowebcholos.w6tdj.mongodb.net/CholosDB?retryWrites=true&w=majority&appName=SitioWebCholos",
+    URI: process.env.DB_URI,
   },
   server: {
-    port: process.env.PORT || 4000,
+    port: process.env.PORT,
   },
   cloudinary: {
      cloudinary_name: process.env.CLOUDINARY_NAME,
