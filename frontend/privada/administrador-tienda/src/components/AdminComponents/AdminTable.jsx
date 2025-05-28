@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+// Datos simulados de administradores
 const administradores = [
   { id: 1, nombre: "Ramón Valdez", edad: 25, adulto: false, cumple: "2 de junio" },
   { id: 2, nombre: "En forma", edad: 75, adulto: true, cumple: "8 de diciembre" },
@@ -11,26 +12,30 @@ const administradores = [
   { id: 6, nombre: "Otro admin", edad: 30, adulto: true, cumple: "15 de marzo" },
 ];
 
-const rowsPerPage = 5;
+const rowsPerPage = 5; // Cantidad de filas por página
 
 const AdminsTable = () => {
-  const [page, setPage] = useState(0);
-  const navigate = useNavigate();
+  const [page, setPage] = useState(0); // Página actual
+  const navigate = useNavigate(); // Hook de navegación
 
+  // Ir a página anterior
   const handlePrev = () => {
     if (page > 0) setPage(page - 1);
   };
 
+  // Ir a página siguiente
   const handleNext = () => {
     const totalPages = Math.ceil(administradores.length / rowsPerPage);
     if (page < totalPages - 1) setPage(page + 1);
   };
 
+  // Filtrar los administradores que se mostrarán en la página actual
   const currentData = administradores.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
   return (
     <div className="relative max-w-6xl mx-auto px-4 mt-20">
-      {/* Botón flotante aún más arriba */}
+      
+      {/* Botón flotante para agregar un nuevo administrador */}
       <div className="absolute -top-14 left-6 z-20">
         <button
           onClick={() => navigate("/administradores/crear")}
@@ -45,6 +50,7 @@ const AdminsTable = () => {
       <div className="bg-white shadow-md rounded-md p-6 pt-6 relative z-10">
         <h2 className="text-lg font-semibold text-gray-800 mb-4 text-left">Administradores registrados</h2>
 
+        {/* Tabla con scroll horizontal si es necesario */}
         <div className="overflow-x-auto rounded">
           <table className="w-full text-sm text-left text-gray-800 border-collapse">
             <thead className="bg-gray-100 text-xs uppercase text-gray-600 border-b">
@@ -53,10 +59,11 @@ const AdminsTable = () => {
                 <th className="p-3">Acciones</th>
                 <th className="p-3">Nombre</th>
                 <th className="p-3">Edad</th>
-                <th className="p-3">Adulto</th>
+                <th className="p-3">Disponible</th> {/* CAMBIO: antes decía "Adulto" */}
                 <th className="p-3">Cumpleaños</th>
               </tr>
             </thead>
+
             <tbody>
               {currentData.map((admin) => (
                 <tr key={admin.id} className="border-b hover:bg-gray-50">
@@ -74,7 +81,7 @@ const AdminsTable = () => {
                   <td className="p-3">{admin.nombre}</td>
                   <td className="p-3">{admin.edad}</td>
                   <td className="p-3">
-                    <input type="checkbox" checked={admin.adulto} readOnly />
+                    <input type="checkbox" checked={admin.adulto} readOnly /> {/* CAMBIO: sigue siendo booleano */}
                   </td>
                   <td className="p-3">{admin.cumple}</td>
                 </tr>
@@ -83,17 +90,22 @@ const AdminsTable = () => {
           </table>
         </div>
 
-        {/* Paginación */}
+        {/* Sección de paginación */}
         <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
+          {/* Selector de filas por página (aunque es fijo) */}
           <div>
             Filas:{" "}
             <select className="border rounded px-1 py-0.5 ml-1">
               <option>5</option>
             </select>
           </div>
+
+          {/* Rango de filas mostradas */}
           <div>
             {page * rowsPerPage + 1}-{Math.min((page + 1) * rowsPerPage, administradores.length)} de {administradores.length}
           </div>
+
+          {/* Controles de navegación de páginas */}
           <div className="space-x-2">
             <button
               onClick={() => setPage(0)}
