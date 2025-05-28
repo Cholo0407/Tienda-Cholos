@@ -10,7 +10,7 @@ const adminsSchema = new Schema({
        minlenght: 8,
        require:true,
       },
-      mail:{
+      email:{
         type:String,
         minlenght: 6,
         require:true

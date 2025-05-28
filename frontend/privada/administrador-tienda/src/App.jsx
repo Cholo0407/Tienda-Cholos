@@ -14,11 +14,12 @@ import AgregarAdministrador from './pages/AgregarAdministrador.jsx';
 import Models from './pages/Models.jsx';
 import AgregarModels from './pages/AgregarModels.jsx';
 import PrivateRoute from './components/PrivateRoutes/PrivateRoutes.jsx';
+import Register from './pages/RegistroPrimerUso.jsx'
 import { AuthProvider } from './Context/AuthToken.jsx';
 
 function AppContent() {
   const location = useLocation();
-  const hiddenRoutes = ['/login', '/recovery', '/verifyCode', '/newPassword'];
+  const hiddenRoutes = ['/register' ,'/login', '/recovery', '/verifyCode', '/newPassword'];
   const shouldShowMenu = !hiddenRoutes.includes(location.pathname);
 
   return (
@@ -34,6 +35,7 @@ function AppContent() {
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/verifyCode" element={<VerifyCode />} />
           <Route path="/newPassword" element={<NewPassword />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Rutas protegidas */}
           <Route element={<PrivateRoute />}>

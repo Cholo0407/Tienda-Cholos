@@ -8,6 +8,10 @@ export const config = {
   server: {
     port: process.env.PORT,
   },
+  JWT: {
+    secret: process.env.JWT_SECRET,
+    expires: process.env.JWT_EXPIRES
+  },
   cloudinary: {
      cloudinary_name: process.env.CLOUDINARY_NAME,
      cloudinary_api_key: process.env.CLOUDINARY_API_KEY,

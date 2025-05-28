@@ -6,6 +6,7 @@ import customerRoute from "./src/routes/customer.js"
 import saleDetailsRoutes from "./src/routes/saleDetails.js"
 import salesDetails from "./src/routes/sales.js"
 import brandsRoute from "./src/routes/brands.js"
+import registerAdminsRoutes from "./src/routes/registerAdmins.js"
 import cors from "cors"
 
 
@@ -27,6 +28,7 @@ app.use("/api/customers",customerRoute);
 app.use("/api/SaleDetails", saleDetailsRoutes)
 app.use("/api/Sales", salesDetails)
 app.use("/api/brands",brandsRoute);
+app.use("/api/registeradmins",registerAdminsRoutes)
 
 
 export default app;
