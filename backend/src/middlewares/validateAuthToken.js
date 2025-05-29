@@ -13,7 +13,7 @@ export const validateAuthToken = (allowedUserTypes = []) => {
             //2- Imprimir un mensaje de error si no hay cookies
 
             if(!authToken) {
-                return res.json({message: "No auth token found, you must login"})
+                return res.status(401).json({ message: "No auth token found, you must login" });
             }
 
             //3- Extraer la información del token
@@ -23,8 +23,8 @@ export const validateAuthToken = (allowedUserTypes = []) => {
            //4- Verificar si quien inició sesión es un usuario permitido
            
            if(!allowedUserTypes.includes(decoded.userType)) {
-            return res.json({message:"Access denied"})
-           }
+            return res.status(403).json({ message: "Access denied" });
+        }
 
            next();
 
