@@ -15,11 +15,6 @@ const adminsSchema = new Schema({
         minlenght: 6,
         require:true
       },
-      age:{
-        type:Number,
-        require:true,
-       min:18
-      },
       phone:{
        type:String,
        minlenght: 8,

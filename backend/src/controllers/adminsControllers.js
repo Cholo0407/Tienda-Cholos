@@ -11,7 +11,7 @@ adminCon.getAdmins = async (req,res) =>{
 
 adminCon.postAdmins = async (req,res) =>{
     const{name,password,mail,age,phone} = req.body;
-    const adminsNuevos= new adminsMOdel({name,password,mail,age,phone});
+    const adminsNuevos= new adminsMOdel({name,password,mail,phone});
     await adminsNuevos.save();
     res.json({message : "admin agregado"});
 };
@@ -32,7 +32,6 @@ adminCon.putAdmins = async (req,res) =>{
             name,
             password,
             mail,
-            age,
             phone
         },
         {new : true}

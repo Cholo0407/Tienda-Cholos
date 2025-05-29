@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import PasswordBox from "../components/PasswordTextBox";
 import Logo from "../images/logo.jpg";
+import axios from "axios";
+import Swal from 'sweetalert2';
 
 const Register = () => {
   const [correo, setCorreo] = useState("");
@@ -15,38 +17,51 @@ const Register = () => {
 
   const navigate = useNavigate(); // Hook para redirección
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!correo || !telefono || !nombre || !apellido || !contraseña) {
-      alert("Por favor, completa todos los campos.");
-      return;
-    }
+  if (!correo || !telefono || !nombre || !apellido || !contraseña) {
+    Swal.fire("Campos incompletos", "Por favor, completa todos los campos.", "warning");
+    return;
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(correo)) {
-      alert("Por favor, ingresa un correo electrónico válido.");
-      return;
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(correo)) {
+    Swal.fire("Correo inválido", "Ingresa un correo electrónico válido.", "error");
+    return;
+  }
 
-    const phoneRegex = /^[0-9]{8,}$/;
-    if (!phoneRegex.test(telefono)) {
-      alert("Por favor, ingresa un teléfono válido.");
-      return;
-    }
+  const phoneRegex = /^[0-9]{8,}$/;
+  if (!phoneRegex.test(telefono)) {
+    Swal.fire("Teléfono inválido", "Ingresa un número de teléfono válido (mínimo 8 dígitos).", "error");
+    return;
+  }
 
-    if (contraseña.length < 6) {
-      alert("La contraseña debe tener al menos 6 caracteres.");
-      return;
-    }
+  if (contraseña.length < 6) {
+    Swal.fire("Contraseña débil", "La contraseña debe tener al menos 6 caracteres.", "error");
+    return;
+  }
 
-    // Simula éxito y redirecciona
-    alert("¡Registro exitoso!");
-    console.log({ correo, telefono, nombre, apellido, contraseña });
+  try {
+    await axios.post("http://localhost:4000/api/registeradmins", {
+      name: `${nombre} ${apellido}`,
+      email: correo,
+      phone: telefono,
+      password: contraseña,
+    }, {
+      withCredentials: true
+    });
 
-    // Redirigir al dashboard
-    navigate("/dashboard");
-  };
+    Swal.fire("¡Registro exitoso!", "Tu cuenta ha sido creada correctamente.", "success")
+      .then(() => {
+        navigate("/dashboard");
+      });
+  } catch (error) {
+    console.error("Error al registrar admin:", error);
+    Swal.fire("Error", "Hubo un problema al registrarte. Intenta más tarde.", "error");
+  }
+};
+
 
   const goToLogin = (e) => {
     e.preventDefault();

@@ -23,7 +23,6 @@ registerAdminController.register = async (req, res) => {
             name,
             password: passwordHash,
             email,
-            age,
             phone
         });
 
@@ -31,19 +30,28 @@ registerAdminController.register = async (req, res) => {
 
         // Crear token
         jsonwebtoken.sign(
-            { id: newAdmin._id }, // Datos a guardar en el token
-            config.JWT.secret,    // Clave secreta
-            { expiresIn: config.JWT.expires }, // Tiempo de expiración
+            { id: newAdmin._id, userType: "admin" },
+            config.JWT.secret,
+            { expiresIn: config.JWT.expires },
             (error, token) => {
                 if (error) {
-                    console.log("Token error:", error);
-                    return res.json({ message: "Token generation failed" });
+                console.error("Error al generar token:", error);
+                return res.status(500).json({ success: false, message: "Error al generar token" });
                 }
 
-                res.cookie("adminAuthToken", token);
-                res.json({ message: "Admin registered successfully" });
+                res.cookie("authToken", token, { httpOnly: true });
+                return res.status(200).json({
+                success: true,
+                message: "Admin registrado exitosamente",
+                user: {
+                    userType: "admin",
+                    id: newAdmin._id,
+                    email: newAdmin.email,
+                },
+                });
             }
         );
+
     } catch (error) {
         console.log("Registration error:", error);
         res.json({ message: "Admin registration error" });
