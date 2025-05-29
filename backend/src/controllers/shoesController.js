@@ -44,7 +44,7 @@ shoessController.createshoes = async (req, res) => {
         gender,
         releaseDate,
         colors,
-        img,
+        images:img,
         sale
     });
 
@@ -88,7 +88,7 @@ shoessController.updateshoes = async (req, res) => {
             gender,
             releaseDate,
             colors,
-            img,
+            images:img,
             sale
         },
         { new: true }

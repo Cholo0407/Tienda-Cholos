@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -9,6 +9,8 @@ export default function AgregarProducto({ refreshZapato }) {
   const fileInputRef = useRef(null);
   const [imagenPreview, setImagenPreview] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [brands, setBrands] = useState([]);
+  const [models, setModels] = useState([]);
 
   const [zapato, setZapato] = useState({
     name: "",
@@ -21,18 +23,32 @@ export default function AgregarProducto({ refreshZapato }) {
     gender: "Unisex",
     releaseDate: new Date().toISOString().split("T")[0],
     colors: "",
-    img: null,
+    images: null,
     sale: "",
   });
 
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [brandRes, modelRes] = await Promise.all([
+          axios.get("http://localhost:4000/api/brands"),
+          axios.get("http://localhost:4000/api/models"),
+        ]);
+        setBrands(brandRes.data);
+        setModels(modelRes.data);
+      } catch (error) {
+        console.error("Error al cargar marcas o modelos:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleImageClick = () => fileInputRef.current.click();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setZapato({ ...zapato, img: file });
+      setZapato({ ...zapato, images: file });
       setImagenPreview(URL.createObjectURL(file));
     }
   };
@@ -43,45 +59,56 @@ export default function AgregarProducto({ refreshZapato }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    const formData = new FormData();
-    for (const key in zapato) {
-      if (zapato[key] !== "" && zapato[key] !== null) {
-        formData.append(key, zapato[key]);
-      }
+  const formData = new FormData();
+
+  for (const key in zapato) {
+    if (key === "size") {
+      const sizes = zapato.size
+        .split(",")
+        .map((s) => parseFloat(s.trim()))
+        .filter((n) => !isNaN(n));
+      sizes.forEach((size) => formData.append("size[]", size));
+    } else if (key === "images" && zapato[key]) {
+      formData.append("images", zapato[key]);
+    } else if (zapato[key] !== "" && zapato[key] !== null) {
+      formData.append(key, zapato[key]);
     }
+  }
 
-    try {
-      await axios.post("http://localhost:4000/api/shoes", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+  try {
+    await axios.post("http://localhost:4000/api/shoes", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
-      Swal.fire("¡Producto agregado!", "", "success");
+    Swal.fire("¡Producto agregado!", "", "success");
 
-      setZapato({
-        name: "",
-        description: "",
-        price: "",
-        size: "",
-        idModel: "",
-        idBrand: "",
-        stock: "",
-        gender: "Unisex",
-        releaseDate: new Date().toISOString().split("T")[0],
-        colors: "",
-        img: null,
-        sale: "",
-      });
-      setImagenPreview(null);
-      if (refreshZapato) refreshZapato();
-    } catch (error) {
-      Swal.fire("Error", "No se pudo agregar el producto", "error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    setZapato({
+      name: "",
+      description: "",
+      price: "",
+      size: "",
+      idModel: "",
+      idBrand: "",
+      stock: "",
+      gender: "Unisex",
+      releaseDate: new Date().toISOString().split("T")[0],
+      colors: "",
+      images: null,
+      sale: "",
+    });
+    setImagenPreview(null);
+    if (refreshZapato) refreshZapato();
+  } catch (error) {
+    console.error("Error al enviar producto:", error);
+    Swal.fire("Error", "No se pudo agregar el producto", "error");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const handleVolver = () => navigate("/products");
 
@@ -103,7 +130,6 @@ export default function AgregarProducto({ refreshZapato }) {
       </div>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-3 gap-4">
-        {/* Imagen */}
         <div
           onClick={handleImageClick}
           className="border-2 border-dashed border-gray-300 rounded w-24 h-24 flex flex-col items-center justify-center cursor-pointer"
@@ -169,14 +195,20 @@ export default function AgregarProducto({ refreshZapato }) {
           required
         />
 
-        <input
+        <select
           name="idBrand"
           value={zapato.idBrand}
           onChange={handleInputChange}
-          placeholder="Marca"
           className="border p-2 rounded"
           required
-        />
+        >
+          <option value="">Selecciona una marca</option>
+          {brands.map((brand) => (
+            <option key={brand._id} value={brand._id}>
+              {brand.name}
+            </option>
+          ))}
+        </select>
 
         <input
           name="sale"
@@ -187,23 +219,30 @@ export default function AgregarProducto({ refreshZapato }) {
           className="border p-2 rounded"
         />
 
-        <input
+        <select
           name="idModel"
           value={zapato.idModel}
           onChange={handleInputChange}
-          placeholder="Modelo"
           className="border p-2 rounded"
           required
-        />
+        >
+          <option value="">Selecciona un modelo</option>
+          {models.map((model) => (
+            <option key={model._id} value={model._id}>
+              {model.name}
+            </option>
+          ))}
+        </select>
 
         <input
-          name="size"
-          value={zapato.size}
-          onChange={handleInputChange}
-          placeholder="Tallas disponibles"
-          className="border p-2 rounded"
-          required
-        />
+  name="size"
+  value={zapato.size}
+  onChange={handleInputChange}
+  placeholder="Tallas (ej: 38,39,40)"
+  className="border p-2 rounded"
+  required
+/>
+
 
         <button
           type="submit"

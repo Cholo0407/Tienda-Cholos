@@ -61,10 +61,10 @@ const shoeSchema = new Schema({
         type: String, 
         required: [true, "El color es obligatorio"],
     },
-    images: [{
+    images: {
     type: String,
     required: [true, "La imagen es obligatoria"],
-    }],
+    },
     sale: {
         type: Number,
         default: 0
