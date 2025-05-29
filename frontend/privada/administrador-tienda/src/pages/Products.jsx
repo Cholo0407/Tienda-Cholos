@@ -45,9 +45,10 @@ export default function ShoeStore() {
 
   // Navegación a agregar zapato
   const handleContinue = (e) => {
-    e.preventDefault();
-    navigate('/agregarZapato');
-  };
+  e.preventDefault();
+  navigate('/products/AgregarZapato');
+};
+
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
@@ -74,7 +75,7 @@ export default function ShoeStore() {
                 className="flex bg-white rounded-lg transition-all duration-300 hover:shadow-lg hover:bg-gray-50 cursor-pointer p-3"
               >
                 <div className="flex flex-col items-center">
-                  <img src={shoe.img} alt={shoe.name} className="w-24 h-24 object-contain" />
+                  <img src={shoe.images} alt={shoe.name} className="w-24 h-24 object-contain" />
                   <div className="mt-2 text-center">
                     <h3 className="font-medium">{shoe.name}</h3>
                     <p className="text-gray-500 text-sm">
