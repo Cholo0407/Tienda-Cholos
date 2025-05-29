@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../context/AuthToken"; // importa tu hook del contexto
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
 import PasswordBox from "../components/PasswordTextBox";
-import { toast } from "react-hot-toast";
 import Logo from "../images/logo.jpg";
 
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();  // accede al método login del contexto
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,30 +31,16 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api/login";
-
-      const { data } = await axios.post(
-        API_URL,
-        { email, password },
-        { withCredentials: true }
-      );
-
-      if (!data || data.success === false) {
-        throw new Error(data.message || "Credenciales inválidas");
+      const success = await login(email, password);  // usa el login del contexto
+      if (success) {
+        toast.success("Inicio de sesión exitoso.");
+        navigate("/dashboard");
+      } else {
+        toast.error("Credenciales incorrectas.");
       }
-
-      if (!data?.user?.userType) {
-        throw new Error("Respuesta inválida del servidor");
-      }
-
-      // Aquí puedes guardar el token o user info si es necesario
-      toast.success("Inicio de sesión exitoso.");
-      navigate("/dashboard");
-
     } catch (error) {
       console.error("Error en login:", error);
-      const message = error.response?.data?.message || error.message || "Error al iniciar sesión.";
-      toast.error(message);
+      toast.error("Error al iniciar sesión.");
     } finally {
       setIsLoading(false);
     }
