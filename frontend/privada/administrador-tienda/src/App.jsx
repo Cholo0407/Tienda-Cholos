@@ -25,7 +25,7 @@ function AppContent() {
   return (
     <div className="flex">
       {shouldShowMenu && <SideMenu />}
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-auto h-screen">
         <Routes>
           {/* Redirección desde "/" a "/login" */}
           <Route path="/" element={<Navigate to="/login" />} />
