@@ -30,7 +30,7 @@ registerAdminController.register = async (req, res) => {
 
         // Crear token
         jsonwebtoken.sign(
-            { id: newAdmin._id, userType: "admin" },
+            { id: newAdmin._id, userType: "employee" },
             config.JWT.secret,
             { expiresIn: config.JWT.expires },
             (error, token) => {
@@ -44,7 +44,7 @@ registerAdminController.register = async (req, res) => {
                 success: true,
                 message: "Admin registrado exitosamente",
                 user: {
-                    userType: "admin",
+                    userType: "employee",
                     id: newAdmin._id,
                     email: newAdmin.email,
                 },
