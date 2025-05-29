@@ -29,17 +29,22 @@ export default function AgregarProducto({ refreshZapato }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const [brandRes, modelRes] = await Promise.all([
-          axios.get("http://localhost:4000/api/brands"),
-          axios.get("http://localhost:4000/api/models"),
-        ]);
-        setBrands(brandRes.data);
-        setModels(modelRes.data);
-      } catch (error) {
-        console.error("Error al cargar marcas o modelos:", error);
-      }
-    };
+  try {
+    const [brandRes, modelRes] = await Promise.all([
+      axios.get("http://localhost:4000/api/brands", {
+        withCredentials: true,
+      }),
+      axios.get("http://localhost:4000/api/models", {
+        withCredentials: true,
+      }),
+    ]);
+    setBrands(brandRes.data);
+    setModels(modelRes.data);
+  } catch (error) {
+    console.error("Error al cargar marcas o modelos:", error);
+  }
+};
+
     fetchData();
   }, []);
 
@@ -78,19 +83,12 @@ export default function AgregarProducto({ refreshZapato }) {
     }
   }
 
-<<<<<<< HEAD
-  try {
-    await axios.post("http://localhost:4000/api/shoes", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-=======
     try {
       await axios.post("http://localhost:4000/api/shoes", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true, // 👈 Esto es esencial
       });
       
->>>>>>> 2d4ef1855a6c59062d927141b1b944e4d57143e9
 
     Swal.fire("¡Producto agregado!", "", "success");
 
@@ -261,6 +259,6 @@ export default function AgregarProducto({ refreshZapato }) {
           {isSubmitting ? "Guardando..." : "Guardar información"}
         </button>
       </form>
-    </div>
-  );
+    </div>
+  );
 }
