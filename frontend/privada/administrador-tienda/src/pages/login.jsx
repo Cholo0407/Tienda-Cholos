@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useAuth } from "../context/AuthToken"; // importa tu hook del contexto
+import { useAuth } from "../Context/AuthToken"; // importa tu hook del contexto
 import Button from "../components/Button";
 import TextBox from "../components/TextBox";
 import PasswordBox from "../components/PasswordTextBox";
