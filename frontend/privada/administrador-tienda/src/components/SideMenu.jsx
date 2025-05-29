@@ -1,11 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, Package, Users, ShieldCheck, Layers, LogOut } from 'lucide-react';
+import axios from "axios";
 import logo from '../images/logo.jpg';
 import { useAuth } from "../Context/AuthToken";  // Importa el contexto
 
 const SideMenu = () => {
   const { user } = useAuth(); // Obtiene el usuario del contexto
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/api/logout", {}, { withCredentials:true });
+      if(response.status === 200){
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
 
   // Filtramos los items según el tipo de usuario
   const menuItems = [
@@ -49,12 +62,10 @@ const SideMenu = () => {
       </div>
 
       <div className="p-4 border-t border-gray-200">
-        <NavLink to="/login">
-          <div className="flex items-center pl-6 py-3 w-full text-gray-500 hover:text-red-500 transition-colors cursor-pointer">
-            <LogOut className="w-6 h-6 mr-4" />
-            <span className="text-sm tracking-wider">Cerrar Sesión</span>
-          </div>
-        </NavLink>
+        <div onClick={handleLogout} className="flex items-center pl-6 py-3 w-full text-gray-500 hover:text-red-500 transition-colors cursor-pointer">
+          <LogOut className="w-6 h-6 mr-4" />
+          <span className="text-sm tracking-wider">Cerrar Sesión</span>
+        </div>
       </div>
     </div>
   );
