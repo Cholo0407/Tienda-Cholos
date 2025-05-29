@@ -1,22 +1,25 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, Package, Users, ShieldCheck, Layers, LogOut } from 'lucide-react';
-import logo from '../images/logo.jpg'; // ✅ Importa la imagen
+import logo from '../images/logo.jpg';
+import { useAuth } from "../Context/AuthToken";  // Importa el contexto
 
 const SideMenu = () => {
+  const { user } = useAuth(); // Obtiene el usuario del contexto
+
+  // Filtramos los items según el tipo de usuario
   const menuItems = [
     { id: 'dashboard', icon: <LayoutDashboard className="w-6 h-6" />, text: 'DASHBOARD', route: '/dashboard' },
     { id: 'products', icon: <Package className="w-6 h-6" />, text: 'PRODUCTOS', route: '/products' },
     { id: 'clients', icon: <Users className="w-6 h-6" />, text: 'CLIENTES', route: '/customers' },
-    { id: 'admins', icon: <ShieldCheck className="w-6 h-6" />, text: 'ADMINS', route: '/admins' },
+    // Solo mostramos este item si el usuario es admin
+    ...(user?.userType === "admin" ? [{ id: 'admins', icon: <ShieldCheck className="w-6 h-6" />, text: 'ADMINS', route: '/admins' }] : []),
     { id: 'models', icon: <Layers className="w-6 h-6" />, text: 'MODELOS', route: '/models' },
   ];
 
   return (
     <div className="h-screen w-52 bg-white border-r border-gray-200 flex flex-col justify-between">
-      {/* Top (logo + menu) */}
       <div>
-        {/* Logo Section */}
         <div className="p-4 flex items-center justify-center">
           <img
             src={logo}
@@ -25,7 +28,6 @@ const SideMenu = () => {
           />
         </div>
 
-        {/* Menu Items */}
         <div className="mt-6">
           {menuItems.map((item) => (
             <NavLink
@@ -46,7 +48,6 @@ const SideMenu = () => {
         </div>
       </div>
 
-      {/* Logout Button */}
       <div className="p-4 border-t border-gray-200">
         <NavLink to="/login">
           <div className="flex items-center pl-6 py-3 w-full text-gray-500 hover:text-red-500 transition-colors cursor-pointer">

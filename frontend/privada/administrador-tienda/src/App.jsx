@@ -47,7 +47,6 @@ function AppContent() {
             <Route path="/administradores/crear" element={<AgregarAdministrador />} /> 
             <Route path="/models" element={<Models />} />
             <Route path="/models/create" element={<AgregarModels />} />
-            <Route path="/register" element={<div>Register</div>} />
           </Route>
         </Routes>
       </div>

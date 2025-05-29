@@ -78,10 +78,19 @@ export default function AgregarProducto({ refreshZapato }) {
     }
   }
 
+<<<<<<< HEAD
   try {
     await axios.post("http://localhost:4000/api/shoes", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+=======
+    try {
+      await axios.post("http://localhost:4000/api/shoes", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true, // 👈 Esto es esencial
+      });
+      
+>>>>>>> 2d4ef1855a6c59062d927141b1b944e4d57143e9
 
     Swal.fire("¡Producto agregado!", "", "success");
 

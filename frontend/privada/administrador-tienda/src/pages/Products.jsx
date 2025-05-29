@@ -2,19 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import ShoeList from '../components/Products/List.jsx'; // Asegúrate de que la ruta sea correcta
 
 export default function ShoeStore() {
   const navigate = useNavigate();
   const [shoes, setShoes] = useState([]);
 
-  // GET: obtener zapatos al cargar
   useEffect(() => {
-    axios.get('http://localhost:4000/api/shoes')
-      .then((response) => setShoes(response.data))
-      .catch((error) => console.error('Error al obtener zapatos:', error));
+    axios.get('http://localhost:4000/api/shoes', { withCredentials: true })
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setShoes(response.data);
+        } else {
+          console.error("Respuesta inesperada de /api/shoes:", response.data);
+          setShoes([]); // Evita que falle el render
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener zapatos:", error);
+        setShoes([]); // Evita que falle el render
+      });
   }, []);
+  
 
-  // DELETE: eliminar zapato
   const handleDelete = (id) => {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -25,7 +35,7 @@ export default function ShoeStore() {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:4000/api/shoes/${id}`)
+        axios.delete(`http://localhost:4000/api/shoes/${id}`, { withCredentials: true })
           .then(() => {
             setShoes(shoes.filter(shoe => shoe._id !== id));
             Swal.fire('Eliminado', 'Zapato eliminado correctamente', 'success');
@@ -38,17 +48,21 @@ export default function ShoeStore() {
     });
   };
 
-  // PUT: redirige a página de edición
   const handleEdit = (shoe) => {
     navigate(`/editarZapato/${shoe._id}`, { state: { shoe } });
   };
 
-  // Navegación a agregar zapato
   const handleContinue = (e) => {
+<<<<<<< HEAD
   e.preventDefault();
   navigate('/products/AgregarZapato');
 };
 
+=======
+    e.preventDefault();
+    navigate('/products/AgregarZapato');
+  };
+>>>>>>> 2d4ef1855a6c59062d927141b1b944e4d57143e9
 
   return (
     <div className="min-h-screen bg-white font-sans flex flex-col">
@@ -67,6 +81,7 @@ export default function ShoeStore() {
       </header>
 
       <main className="flex-1 overflow-y-auto px-4 py-6">
+<<<<<<< HEAD
         <div className="relative">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {shoes.map((shoe) => (
@@ -115,6 +130,9 @@ export default function ShoeStore() {
             ))}
           </div>
         </div>
+=======
+        <ShoeList shoes={shoes} onEdit={handleEdit} onDelete={handleDelete} />
+>>>>>>> 2d4ef1855a6c59062d927141b1b944e4d57143e9
       </main>
     </div>
   );
