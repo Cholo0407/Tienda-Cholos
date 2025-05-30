@@ -8,17 +8,20 @@ import { useAuth } from "../Context/AuthToken";  // Importa el contexto
 const SideMenu = () => {
   const { user } = useAuth(); // Obtiene el usuario del contexto
   const navigate = useNavigate();
+  const { logOut } = useAuth(); // importa logOut del contexto
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/api/logout", {}, { withCredentials:true });
-      if(response.status === 200){
+      const response = await axios.post("http://localhost:4000/api/logout", {}, { withCredentials: true });
+      if (response.status === 200) {
+        logOut(); // elimina localStorage y limpia estado
         navigate("/login");
       }
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
   };
+
 
   // Filtramos los items según el tipo de usuario
   const menuItems = [

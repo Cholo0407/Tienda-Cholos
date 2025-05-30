@@ -16,11 +16,13 @@ import AgregarModels from './pages/AgregarModels.jsx';
 import PrivateRoute from './components/PrivateRoutes/PrivateRoutes.jsx';
 import Register from './pages/RegistroPrimerUso.jsx'
 import { AuthProvider } from './Context/AuthToken.jsx';
+import { useAuth } from './Context/AuthToken';
 
 function AppContent() {
   const location = useLocation();
   const hiddenRoutes = ['/register' ,'/login', '/recovery', '/verifyCode', '/newPassword'];
   const shouldShowMenu = !hiddenRoutes.includes(location.pathname);
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className="flex">
@@ -31,7 +33,7 @@ function AppContent() {
           <Route path="/" element={<Navigate to="/login" />} />
 
           {/* Rutas públicas */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />} />
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/verifyCode" element={<VerifyCode />} />
           <Route path="/newPassword" element={<NewPassword />} />
