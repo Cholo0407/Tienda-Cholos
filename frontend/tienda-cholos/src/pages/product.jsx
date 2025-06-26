@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  ShoppingCart,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ShoppingCart, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "../components/Footer";
+import useAddToCart from "../hooks/useAddToCart";
 
 export default function ProductPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const product = location.state?.product;
 
-  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState("");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const { addToCart, loading, error, success } = useAddToCart();
 
   useEffect(() => {
     if (!product) {
@@ -22,12 +20,20 @@ export default function ProductPage() {
     }
   }, [product, navigate]);
 
-  if (!product) return null; 
+  if (!product) return null;
 
   const hasDiscount = product.sale > 0;
   const discountedPrice = hasDiscount
     ? product.price - (product.price * product.sale) / 100
     : product.price;
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Por favor selecciona una talla");
+      return;
+    }
+    addToCart(product, 1);
+  };
 
   return (
     <div>
@@ -47,7 +53,7 @@ export default function ProductPage() {
                 <>
                   <button
                     onClick={() =>
-                      setCurrentImageIndex(prev =>
+                      setCurrentImageIndex((prev) =>
                         prev === 0 ? product.images.length - 1 : prev - 1
                       )
                     }
@@ -57,9 +63,7 @@ export default function ProductPage() {
                   </button>
                   <button
                     onClick={() =>
-                      setCurrentImageIndex(prev =>
-                        (prev + 1) % product.images.length
-                      )
+                      setCurrentImageIndex((prev) => (prev + 1) % product.images.length)
                     }
                     className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1"
                   >
@@ -70,7 +74,9 @@ export default function ProductPage() {
                     {product.images.map((_, index) => (
                       <span
                         key={index}
-                        className={`h-2 w-2 ${index === currentImageIndex ? 'bg-teal-500' : 'bg-gray-300'} rounded-full cursor-pointer`}
+                        className={`h-2 w-2 ${
+                          index === currentImageIndex ? "bg-teal-500" : "bg-gray-300"
+                        } rounded-full cursor-pointer`}
                         onClick={() => setCurrentImageIndex(index)}
                       />
                     ))}
@@ -81,7 +87,9 @@ export default function ProductPage() {
 
             {/* Detalles */}
             <div>
-              <p className="text-gray-500 text-lg">{product.colors?.[0] || product.color || "Color no especificado"}</p>
+              <p className="text-gray-500 text-lg">
+                {product.colors?.[0] || product.color || "Color no especificado"}
+              </p>
 
               {/* Selector de talla */}
               <div className="mt-6 rounded-md p-4 mb-6 border border-black">
@@ -94,9 +102,13 @@ export default function ProductPage() {
                     value={selectedSize}
                     onChange={(e) => setSelectedSize(e.target.value)}
                   >
-                    <option value="" disabled hidden>Selecciona</option>
-                    {(product.size || []).map(size => (
-                      <option key={size} value={size}>{size}</option>
+                    <option value="" disabled hidden>
+                      Selecciona
+                    </option>
+                    {(product.size || []).map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
                     ))}
                   </select>
                   <ChevronDown className="absolute right-2 top-3.5 h-5 w-5 pointer-events-none" />
@@ -128,21 +140,25 @@ export default function ProductPage() {
                   {product.stock <= 5 && product.stock > 0 && (
                     <p className="text-red-500 text-sm mt-1">¡Solo quedan {product.stock} unidades!</p>
                   )}
-                  {product.stock === 0 && (
-                    <p className="text-red-500 text-sm mt-1">Agotado</p>
-                  )}
+                  {product.stock === 0 && <p className="text-red-500 text-sm mt-1">Agotado</p>}
                 </div>
 
                 <h3 className="text-lg font-semibold mb-3">Opciones de compra</h3>
                 <div className="flex space-x-4">
-                  <button className="bg-teal-500 text-white px-4 py-2 rounded flex items-center justify-center flex-1">
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={loading}
+                    className="bg-teal-500 text-white px-4 py-2 rounded flex items-center justify-center flex-1"
+                  >
                     <ShoppingCart className="h-5 w-5 mr-2" />
-                    Agregar
+                    {loading ? "Agregando..." : "Agregar"}
                   </button>
                   <button className="bg-teal-500 text-white px-4 py-2 rounded flex-1">
                     Comprar ahora
                   </button>
                 </div>
+                {error && <p className="text-red-500 mt-2">{error}</p>}
+                {success && <p className="text-green-500 mt-2">{success}</p>}
               </div>
             </div>
           </div>

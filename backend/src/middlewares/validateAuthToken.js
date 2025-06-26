@@ -2,36 +2,27 @@ import jsonwebtoken from "jsonwebtoken";
 import {config} from "../config.js"
 
 export const validateAuthToken = (allowedUserTypes = []) => {
-    return (req, res, next) => {
+  return (req, res, next) => {
+    try {
+      const { authToken } = req.cookies;
 
-        try {
-        
-            //1- Extraer el token de las cookies
+      if (!authToken) {
+        return res.status(401).json({ message: "No auth token found, you must login" });
+      }
 
-            const {authToken} = req.cookies;
+      const decoded = jsonwebtoken.verify(authToken, config.JWT.secret);
 
-            //2- Imprimir un mensaje de error si no hay cookies
+      if (!allowedUserTypes.includes(decoded.userType)) {
+        return res.status(403).json({ message: "Access denied" });
+      }
 
-            if(!authToken) {
-                return res.status(401).json({ message: "No auth token found, you must login" });
-            }
+      // Guardar info del usuario para usar después en req
+      req.user = { id: decoded.id, userType: decoded.userType };
 
-            //3- Extraer la información del token
-
-            const decoded = jsonwebtoken.verify(authToken, config.JWT.secret);
-
-           //4- Verificar si quien inició sesión es un usuario permitido
-           
-           if(!allowedUserTypes.includes(decoded.userType)) {
-            return res.status(403).json({ message: "Access denied" });
-        }
-
-           next();
-
-        } catch (error) {
-
-            console.log("error " + error)
-            
-        }
+      next();
+    } catch (error) {
+      console.log("error " + error);
+      res.status(401).json({ message: "Token inválido" });
     }
-}
+  };
+};

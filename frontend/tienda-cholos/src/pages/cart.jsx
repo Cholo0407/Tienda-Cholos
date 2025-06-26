@@ -1,64 +1,78 @@
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import pumarsx from '../images/pumarsx.png';
-import vans from '../images/vans.avif';
-import nb from '../images/newbalance.jpg';
-
+import React, { useState, useEffect } from "react";
+import { ArrowLeft, ArrowRight, Trash2, ChevronUp, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useSaleDetails } from "../hooks/useSaleDetails";
+import pumarsx from "../images/pumarsx.png";
 
 export default function ShoppingCart() {
   const navigate = useNavigate();
-  const initialProducts = [
-    { id: 1, name: 'Puma RS-X', price: 193, image: pumarsx, quantity: 1 },
-    { id: 2, name: 'Vans old school', price: 99, image: vans, quantity: 1 },
-    { id: 3, name: 'New Balance 574', price: 59, image: nb, quantity: 1 }
-  ];
+  const { cart, loading, error } = useSaleDetails();
 
-  const [products, setProducts] = useState(initialProducts);
+  // Mapeamos los productos del carrito para el estado local
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (cart && cart.products) {
+      const loadedProducts = cart.products.map((p) => ({
+        id: p.idProduct._id || p.idProduct,
+        name: p.idProduct.name || "Producto",
+        price: p.idProduct.price || 0,
+        image: p.idProduct.images || pumarsx,
+        quantity: p.quantity,
+        subtotal: p.subtotal,
+      }));
+      setProducts(loadedProducts);
+    } else {
+      setProducts([]);
+    }
+  }, [cart]);
 
   const updateQuantity = (id, delta) => {
-    setProducts(prev =>
-      prev.map(p =>
+    setProducts((prev) =>
+      prev.map((p) =>
         p.id === id
-          ? { ...p, quantity: Math.max(1, p.quantity + delta) }
+          ? { ...p, quantity: Math.max(1, p.quantity + delta), subtotal: p.price * Math.max(1, p.quantity + delta) }
           : p
       )
     );
   };
 
   const removeProduct = (id) => {
-    setProducts(prev => prev.filter(p => p.id !== id));
+    setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const subtotal = products.reduce((sum, product) => sum + product.price * product.quantity, 0);
-  const serviceCharge = 0.20;
-  const shippingFee = 2.50;
+  const subtotal = products.reduce((sum, product) => sum + product.subtotal, 0);
+  const serviceCharge = 0.2;
+  const shippingFee = 2.5;
   const total = subtotal + serviceCharge + shippingFee;
 
   const handleContinue = (e) => {
     e.preventDefault();
-    // Pass cart data to checkout page
-    navigate('/cart2', { 
-      state: { 
+    navigate("/cart2", {
+      state: {
         cartData: {
           products,
           subtotal,
           serviceCharge,
           shippingFee,
-          total
-        } 
-      } 
+          total,
+        },
+      },
     });
   };
 
+  if (loading) return <p>Cargando carrito...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+  if (!cart) return <p>Tu carrito está vacío</p>;
+
   return (
-    <div className="flex flex-col min-h-screen pt-[5rem] bg-white"> 
+    <div className="flex flex-col min-h-screen pt-[5rem] bg-white">
       <main className="flex-grow max-w-6xl mx-auto p-4 font-sans w-full">
         {/* Header */}
         <div className="mb-6">
-          <button className="flex items-center text-gray-600 mb-6">
+          <button className="flex items-center text-gray-600 mb-6" onClick={() => navigate(-1)}>
             <ArrowLeft size={20} className="mr-2" />
-            <span className="font-semibold">Volver al menu principal</span>
+            <span className="font-semibold">Volver al menú principal</span>
           </button>
 
           <div className="mb-1">
@@ -71,10 +85,17 @@ export default function ShoppingCart() {
         <div className="flex flex-col md:flex-row gap-6">
           {/* Product List */}
           <div className="flex-1">
-            {products.map(product => (
-              <div key={product.id} className="border rounded-xl p-4 mb-4 flex items-center shadow-sm">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className="border rounded-xl p-4 mb-4 flex items-center shadow-sm"
+              >
                 <div className="flex-shrink-0 mr-4">
-                  <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded" />
+                  <img
+                    src={product.image} // Usa directamente la URL que se obtiene de la base de datos
+                    alt={product.name}
+                    className="w-16 h-16 object-cover rounded"
+                  />
                 </div>
 
                 <div className="flex-1">
@@ -94,10 +115,10 @@ export default function ShoppingCart() {
                 </div>
 
                 <div className="text-right mr-4 w-16">
-                  <p className="font-medium">${product.price * product.quantity}</p>
+                  <p className="font-medium">${(product.price * product.quantity).toFixed(2)}</p>
                 </div>
 
-                <button 
+                <button
                   className="text-gray-400 hover:text-red-500"
                   onClick={() => removeProduct(product.id)}
                 >
@@ -128,11 +149,11 @@ export default function ShoppingCart() {
               </div>
 
               <div className="border-t border-teal-500 pt-4 mb-6 flex justify-between font-medium">
-                <span>Subtotal</span>
+                <span>Total</span>
                 <span>${total.toFixed(2)}</span>
               </div>
 
-              <button 
+              <button
                 onClick={handleContinue}
                 className="w-full bg-teal-500 hover:bg-teal-400 py-4 px-4 rounded-lg flex items-center justify-center font-medium"
               >
@@ -149,8 +170,12 @@ export default function ShoppingCart() {
         <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
           <div>© 2024 Cholo's. Todos los derechos reservados.</div>
           <div className="flex gap-4 mt-2 md:mt-0">
-            <a href="#" className="hover:text-gray-700">Política de privacidad</a>
-            <a href="#" className="hover:text-gray-700">Términos y condiciones</a>
+            <a href="#" className="hover:text-gray-700">
+              Política de privacidad
+            </a>
+            <a href="#" className="hover:text-gray-700">
+              Términos y condiciones
+            </a>
           </div>
         </div>
       </footer>

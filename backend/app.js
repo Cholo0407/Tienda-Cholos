@@ -38,7 +38,7 @@ app.use("/api/models", validateAuthToken(["admin", "employee", "customer"]), mod
 app.use("/api/shoes", validateAuthToken(["admin", "employee", "customer"]), shoesRoutes);
 app.use("/api/admins", validateAuthToken(["admin"]), adminsRoute);
 app.use("/api/brands", validateAuthToken(["admin", "employee", "customer"]), brandsRoute);
-app.use("/api/SaleDetails", validateAuthToken(["admin", "employee"]), saleDetailsRoutes);
-app.use("/api/Sales", validateAuthToken(["admin", "employee"]), salesDetails);
+app.use("/api/SaleDetails", validateAuthToken(["admin", "employee", "customer"]), saleDetailsRoutes);
+app.use("/api/Sales", validateAuthToken(["admin", "employee", "customer"]), salesDetails);
 
 export default app;

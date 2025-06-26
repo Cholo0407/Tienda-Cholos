@@ -4,14 +4,14 @@ const saleDetailsSchema = new Schema(
     {
         idCustomer: {
             type: Schema.Types.ObjectId,
-            ref: "Customers",
+            ref: "customers",
             required: [true, "El id del clientes es obligatorio"],
         },
         products: [
             {
                 idProduct: {
                     type: Schema.Types.ObjectId,
-                    ref: "Shoes",
+                    ref: "Shoe",
                     required: true,
                 },
                 quantity: {
