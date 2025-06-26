@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { Mail, Lock, User, Phone, Calendar } from "lucide-react";
-import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import useRegister from "../hooks/useRegister";
 
 const Register = () => {
-  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     mail: "",
@@ -13,6 +11,8 @@ const Register = () => {
     password: "",
     age: ""
   });
+
+  const { register, loading } = useRegister();
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -22,52 +22,8 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = async () => {
-    const { name, mail, phone, password, age } = form;
-
-    // Validaciones básicas
-    if (!name || !mail || !phone || !password || !age) {
-      toast.error("Completa todos los campos.");
-      return;
-    }
-
-    const ageNumber = parseInt(age);
-    if (isNaN(ageNumber) || ageNumber < 14) {
-      toast.error("La edad debe ser un número mayor o igual a 14.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/api/customers",
-        {
-          name,
-          mail,
-          phone,
-          password,
-          age: ageNumber,
-          // Por si tu modelo lo necesita
-          isVerified: false,
-          issnumber: "" // Puedes omitir si no es obligatorio
-        },
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      );
-
-      console.log("Respuesta del servidor:", response.data);
-      toast.success("Registro exitoso. Inicia sesión.");
-      navigate("/login");
-
-    } catch (error) {
-      console.error("Error al registrar:", error.response?.data || error.message);
-
-      const message = error.response?.data?.message || "Ocurrió un error al registrarse.";
-      toast.error(message);
-    }
+  const handleRegister = () => {
+    register(form);
   };
 
   return (
@@ -83,8 +39,12 @@ const Register = () => {
           <InputField label="Edad" icon={<Calendar />} name="age" value={form.age} onChange={handleChange} placeholder="Introduce tu edad (mínimo 14)" type="number" min={14} />
           <InputField label="Contraseña" icon={<Lock />} name="password" value={form.password} onChange={handleChange} placeholder="********" type="password" />
 
-          <button onClick={handleRegister} className="w-full bg-gray-700 text-white py-2 rounded hover:bg-gray-800">
-            Registrarse
+          <button
+            onClick={handleRegister}
+            className={`w-full py-2 rounded text-white ${loading ? "bg-gray-400" : "bg-gray-700 hover:bg-gray-800"}`}
+            disabled={loading}
+          >
+            {loading ? "Registrando..." : "Registrarse"}
           </button>
 
           <p className="text-sm text-center text-gray-500 mt-3">
