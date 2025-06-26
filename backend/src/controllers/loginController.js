@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import adminModel from "../models/admins.js";
+import customersModel from "../models/customers.js";
 import { config } from "../config.js";
 
 const loginController = {};
@@ -14,23 +15,33 @@ loginController.login = async (req, res) => {
 
     // Verificar si es el administrador principal
     if (email === config.ADMIN.email && password === config.ADMIN.pass) {
-      userType = "admin";
       userFound = { _id: "main_admin", email };
-
+      userType = "admin";
     } else {
-      // Buscar en la base de datos
+      // Buscar en Admins
       userFound = await adminModel.findOne({ email });
-      if (!userFound) {
-        return res.status(404).json({ success: false, message: "Usuario no encontrado" });
-      }
 
-      // Validar contraseña
-      const isMatch = await bcrypt.compare(password, userFound.password);
-      if (!isMatch) {
-        return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
-      }
+      if (userFound) {
+        const isMatch = await bcrypt.compare(password, userFound.password);
+        if (!isMatch) {
+          return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
+        }
+        userType = "employee";
+      } else {
+        // Buscar en Customers
+        userFound = await customersModel.findOne({ mail: email });
 
-      userType = "employee";
+        if (!userFound) {
+          return res.status(404).json({ success: false, message: "Usuario no encontrado" });
+        }
+
+        const isMatch = await bcrypt.compare(password, userFound.password);
+        if (!isMatch) {
+          return res.status(401).json({ success: false, message: "Contraseña incorrecta" });
+        }
+
+        userType = "customer";
+      }
     }
 
     // Generar token

@@ -1,147 +1,120 @@
 import { useState, useEffect } from "react";
-import { Mail, Lock, User, Phone } from "lucide-react";
-import basketball from '../images/basketball.png'; // Imagen tipo portada
-import logo from '../images/logo.jpg';
-import { Link } from 'react-router-dom';
+import { Mail, Lock, User, Phone, Calendar } from "lucide-react";
+import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
- const [form, setForm] = useState({
-   nombre: "",
-   apellido: "",
-   correo: "",
-   telefono: "",
-   contraseña: ""
- });
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    mail: "",
+    phone: "",
+    password: "",
+    age: ""
+  });
 
- useEffect(() => {
-   window.scrollTo({ top: window.innerHeight / 8 });
-   document.body.style.overflow = "hidden";
-   return () => {
-     document.body.style.overflow = "auto";
-   };
- }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
- const handleChange = (e) => {
-   setForm({ ...form, [e.target.name]: e.target.value });
- };
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
- return (
-   <div className="min-h-screen flex items-center justify-center font-poppins bg-white">
-     {/* Imagen lateral (solo visible en pantallas medianas o más) */}
-     <div className="hidden md:block md:w-1/2 relative">
-       <img
-         src={basketball}
-         alt="Basketball"
-         className="w-full h-screen object-cover" // Ajuste para ocupar toda la pantalla
-       />
-       <img
-         src={logo}
-         alt="Logo Cholos"
-         className="absolute top-4 left-4 w-16 h-16"
-       />
-     </div>
+  const handleRegister = async () => {
+    const { name, mail, phone, password, age } = form;
 
-     {/* Formulario */}
-     <div className="w-full md:w-1/2 flex items-center justify-center p-6">
-       <div className="max-w-md w-full space-y-6">
-         <h2 className="text-3xl font-semibold text-gray-800">REGISTRATE</h2>
-         <p className="text-sm text-gray-500 mb-4">Serás parte del estilo que pisa fuerte</p>
+    // Validaciones básicas
+    if (!name || !mail || !phone || !password || !age) {
+      toast.error("Completa todos los campos.");
+      return;
+    }
 
-         <div className="space-y-4">
-           <div>
-             <label className="text-sm text-gray-700 text-left block">Nombre</label> {/* Alineación a la izquierda */}
-             <div className="flex items-center border rounded px-3 py-2 mt-1 border-[#C4C4C4]">
-               <User className="w-4 h-4 text-gray-400 mr-2" />
-               <input
-                 type="text"
-                 name="nombre"
-                 placeholder="Introduce tu nombre"
-                 value={form.nombre}
-                 onChange={handleChange}
-                 className="w-full outline-none text-sm"
-               />
-             </div>
-           </div>
+    const ageNumber = parseInt(age);
+    if (isNaN(ageNumber) || ageNumber < 14) {
+      toast.error("La edad debe ser un número mayor o igual a 14.");
+      return;
+    }
 
-           <div>
-             <label className="text-sm text-gray-700 text-left block">Apellido</label> {/* Alineación a la izquierda */}
-             <div className="flex items-center border rounded px-3 py-2 mt-1 border-[#C4C4C4]">
-               <User className="w-4 h-4 text-gray-400 mr-2" />
-               <input
-                 type="text"
-                 name="apellido"
-                 placeholder="Introduce tu Apellido"
-                 value={form.apellido}
-                 onChange={handleChange}
-                 className="w-full outline-none text-sm"
-               />
-             </div>
-           </div>
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/customers",
+        {
+          name,
+          mail,
+          phone,
+          password,
+          age: ageNumber,
+          // Por si tu modelo lo necesita
+          isVerified: false,
+          issnumber: "" // Puedes omitir si no es obligatorio
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
 
-           <div>
-             <label className="text-sm text-gray-700 text-left block">Correo</label> {/* Alineación a la izquierda */}
-             <div className="flex items-center border rounded px-3 py-2 mt-1 border-[#C4C4C4]">
-               <Mail className="w-4 h-4 text-gray-400 mr-2" />
-               <input
-                 type="email"
-                 name="correo"
-                 placeholder="Introduce tu correo electrónico"
-                 value={form.correo}
-                 onChange={handleChange}
-                 className="w-full outline-none text-sm"
-               />
-             </div>
-           </div>
+      console.log("Respuesta del servidor:", response.data);
+      toast.success("Registro exitoso. Inicia sesión.");
+      navigate("/login");
 
-           <div>
-             <label className="text-sm text-gray-700 text-left block">Teléfono</label> {/* Alineación a la izquierda */}
-             <div className="flex items-center border rounded px-3 py-2 mt-1 border-[#C4C4C4]">
-               <Phone className="w-4 h-4 text-gray-400 mr-2" />
-               <input
-                 type="text"
-                 name="telefono"
-                 placeholder="Introduce tu teléfono"
-                 value={form.telefono}
-                 onChange={handleChange}
-                 className="w-full outline-none text-sm"
-               />
-             </div>
-           </div>
+    } catch (error) {
+      console.error("Error al registrar:", error.response?.data || error.message);
 
-           <div>
-             <label className="text-sm text-gray-700 text-left block">Contraseña</label> {/* Alineación a la izquierda */}
-             <div className="flex items-center border rounded px-3 py-2 mt-1 border-[#C4C4C4]">
-               <Lock className="w-4 h-4 text-gray-400 mr-2" />
-               <input
-                 type="password"
-                 name="contraseña"
-                 placeholder="********"
-                 value={form.contraseña}
-                 onChange={handleChange}
-                 className="w-full outline-none text-sm"
-               />
-             </div>
-           </div>
-            <br />
-            <Link to="/">
-           <button className="w-full bg-gray-700 text-white py-2 rounded hover:bg-gray-800">
-             Registrarse
-           </button>
-            </Link>
-            <br /><br />
-           <p className="text-sm text-center text-gray-500">
-             ¿Tienes cuenta?{" "}
-             <Link to="/login" className="text-gray-700 underline">
-               Iniciar sesión
-             </Link>
-           </p>
-         </div>
+      const message = error.response?.data?.message || "Ocurrió un error al registrarse.";
+      toast.error(message);
+    }
+  };
 
-         <p className="text-xs text-center text-gray-400 mt-6">Términos y condiciones</p>
-       </div>
-     </div>
-   </div>
- );
+  return (
+    <div className="min-h-screen flex items-center justify-center font-poppins bg-white">
+      <div className="w-full max-w-md p-8">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-1">REGISTRARSE</h2>
+        <p className="text-sm text-gray-500 mb-6 text-center">Sé parte del estilo que pisa fuerte.</p>
+
+        <div className="space-y-4">
+          <InputField label="Nombre completo" icon={<User />} name="name" value={form.name} onChange={handleChange} placeholder="Introduce tu nombre completo" />
+          <InputField label="Correo" icon={<Mail />} name="mail" value={form.mail} onChange={handleChange} placeholder="Introduce tu correo" type="email" />
+          <InputField label="Teléfono" icon={<Phone />} name="phone" value={form.phone} onChange={handleChange} placeholder="Introduce tu teléfono" type="tel" />
+          <InputField label="Edad" icon={<Calendar />} name="age" value={form.age} onChange={handleChange} placeholder="Introduce tu edad (mínimo 14)" type="number" min={14} />
+          <InputField label="Contraseña" icon={<Lock />} name="password" value={form.password} onChange={handleChange} placeholder="********" type="password" />
+
+          <button onClick={handleRegister} className="w-full bg-gray-700 text-white py-2 rounded hover:bg-gray-800">
+            Registrarse
+          </button>
+
+          <p className="text-sm text-center text-gray-500 mt-3">
+            ¿Tienes cuenta? <Link to="/login" className="text-gray-700 underline">Iniciar sesión</Link>
+          </p>
+        </div>
+
+        <p className="text-xs text-center text-gray-400 mt-6">Términos y condiciones</p>
+      </div>
+    </div>
+  );
 };
+
+// Componente InputField reutilizable
+const InputField = ({ label, icon, name, value, onChange, placeholder, type = "text", min }) => (
+  <div>
+    <label className="text-sm text-gray-700 block mb-1">{label}</label>
+    <div className="flex items-center gap-3 border rounded px-3 py-2 border-[#C4C4C4]">
+      <div className="text-gray-500 text-lg">{icon}</div>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        min={min}
+        className="w-full outline-none text-sm"
+      />
+    </div>
+  </div>
+);
 
 export default Register;

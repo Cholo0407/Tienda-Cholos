@@ -1,15 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap');
 
-/* Estilos base */
+/* NAVBAR BASE */
 .navbar {
   background-color: #222831;
-  padding: 1rem 5%;
+  padding: 1rem 0;
   border-bottom: 1px solid #393E46;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* NUEVOS ESTILOS PARA FIJAR ARRIBA */
   width: 100%;
   position: fixed;
   top: 0;
@@ -17,17 +12,16 @@
   z-index: 1000;
 }
 
-/* Contenedor principal */
 .nav-container {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
   max-width: 1200px;
-  gap: 2rem;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-/* Estilos para el logo */
+/* LOGO IZQUIERDA */
 .logo-link {
   display: flex;
   align-items: center;
@@ -39,17 +33,18 @@
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #F2EBE3;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Menú de navegación */
+/* MENÚ CENTRADO */
 .nav-menu {
   display: flex;
-  justify-content: center;
+  gap: 2.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 3rem;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav-item {
@@ -59,8 +54,8 @@
 
 .nav-link {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 1.1rem;
+  font-weight: 700;
+  font-size: 1rem;
   color: #F2EBE3;
   text-decoration: none;
   text-transform: uppercase;
@@ -72,26 +67,106 @@
   opacity: 0.8;
 }
 
-/* Responsive */
+/* ÍCONOS DERECHA */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-link {
+  color: #F2EBE3;
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.icon-link:hover {
+  opacity: 0.7;
+}
+
+/* BOTÓN DE USUARIO (DESPLEGABLE) */
+.user-button {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-icon {
+  font-size: 1.3rem;
+  color: #F2EBE3;
+  transition: transform 0.2s;
+}
+
+.user-button:hover .user-icon {
+  transform: scale(1.1);
+}
+
+.user-menu {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  background-color: #222831;
+  color: #F2EBE3;
+  border: 1px solid #393E46;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  display: none;
+  flex-direction: column;
+  z-index: 999;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.user-button:hover .user-menu {
+  display: flex;
+}
+
+.user-menu a {
+  text-decoration: none;
+  color: #F2EBE3;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.user-menu a:hover {
+  color: #00ADB5;
+}
+
+/* RESPONSIVE - TABLET Y MÓVIL */
 @media (max-width: 768px) {
   .nav-container {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
     gap: 1rem;
   }
 
   .logo-link {
-    margin-bottom: 1rem;
-  }
-
-  .nav-menu {
-    flex-wrap: wrap;
-    gap: 1.5rem;
     justify-content: center;
   }
 
   .logo-image {
     width: 50px;
     height: 50px;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-icons {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+  }
+
+  .icon-link {
+    font-size: 1.3rem;
   }
 }
