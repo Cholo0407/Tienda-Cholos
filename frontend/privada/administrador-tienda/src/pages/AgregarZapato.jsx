@@ -86,7 +86,7 @@ export default function AgregarProducto({ refreshZapato }) {
     try {
       await axios.post("http://localhost:4000/api/shoes", formData, {
         headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true, // 👈 Esto es esencial
+        withCredentials: true,
       });
       
 
@@ -100,7 +100,7 @@ export default function AgregarProducto({ refreshZapato }) {
       idModel: "",
       idBrand: "",
       stock: "",
-      gender: "Unisex",
+      gender: "",
       releaseDate: new Date().toISOString().split("T")[0],
       colors: "",
       images: null,
@@ -201,6 +201,25 @@ export default function AgregarProducto({ refreshZapato }) {
           className="border p-2 rounded"
           required
         />
+
+        <select
+          name="gender"
+          value={zapato.gender}
+          onChange={handleInputChange}
+          className="border p-2 rounded"
+          required
+        >
+          <option value="">Selecciona el género</option>
+            <option value="hombre">
+              Hombre
+            </option>
+            <option value="mujer">
+              Mujer
+            </option>
+            <option value="unisex">
+              Unisex
+            </option>
+        </select>
 
         <select
           name="idBrand"

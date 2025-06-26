@@ -29,7 +29,14 @@ const CheckboxOption = ({ label, checked, onChange }) => (
   </div>
 );
 
-const FiltersSidebar = ({ openSections, toggleSection, selectedPriceOrder, setSelectedPriceOrder }) => {
+const FiltersSidebar = ({
+  openSections,
+  toggleSection,
+  selectedPriceOrder,
+  setSelectedPriceOrder,
+  updateFilters,
+  filters
+}) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -83,30 +90,31 @@ const FiltersSidebar = ({ openSections, toggleSection, selectedPriceOrder, setSe
 
         <h2 className="text-xl font-bold mb-4 text-teal-600">Filtros</h2>
 
-        <FilterAccordion title="CATEGORÍA" isOpen={openSections["CATEGORÍA"]} toggleSection={toggleSection}>
-          {["RUNNING", "CASUAL", "FÚTBOL", "LIFESTYLE"].map(label => (
-            <CheckboxOption key={label} label={label} />
-          ))}
-        </FilterAccordion>
-
+        {/* GÉNERO */}
         <FilterAccordion title="GÉNERO" isOpen={openSections["GÉNERO"]} toggleSection={toggleSection}>
-          {["HOMBRE", "MUJER"].map(label => (
-            <CheckboxOption key={label} label={label} />
+          {["hombre", "mujer", "unisex"].map(value => (
+            <CheckboxOption
+              key={value}
+              label={value.toUpperCase()}
+              checked={filters.gender.includes(value)}
+              onChange={() => updateFilters("gender", value)}
+            />
           ))}
         </FilterAccordion>
 
-        <FilterAccordion title="MARCA" isOpen={openSections["MARCA"]} toggleSection={toggleSection}>
-          {["VANS", "NIKE", "PUMA", "ADIDAS", "NEW BALANCE", "CONVERSE"].map(label => (
-            <CheckboxOption key={label} label={label} />
-          ))}
-        </FilterAccordion>
-
+        {/* COLOR */}
         <FilterAccordion title="COLOR" isOpen={openSections["COLOR"]} toggleSection={toggleSection}>
-          {['NEGRO', 'BLANCO', 'AZUL', 'ROJO', 'VERDE', 'GRIS', 'AMARILLO', 'MARRÓN', 'ROSA', 'MULTICOLOR'].map(color => (
-            <CheckboxOption key={color} label={color} />
+          {['negro', 'blanco', 'azul', 'rojo', 'verde', 'gris', 'amarillo', 'marrón', 'rosa', 'multicolor'].map(value => (
+            <CheckboxOption
+              key={value}
+              label={value.toUpperCase()}
+              checked={filters.color.includes(value)}
+              onChange={() => updateFilters("color", value)}
+            />
           ))}
         </FilterAccordion>
 
+        {/* PRECIO */}
         <FilterAccordion title="PRECIO" isOpen={openSections["PRECIO"]} toggleSection={toggleSection}>
           <CheckboxOption
             label="MAYOR A MENOR"

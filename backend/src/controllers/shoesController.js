@@ -12,13 +12,41 @@ cloudinary.config({
 });
 
 
-
- 
-//select
 shoessController.getshoes = async (req, res) => {
-    const shoes = await shoesModel.find();
-    res.json(shoes);
-};
+    try {
+      const { gender, color, order } = req.query;
+  
+      let query = {};
+  
+      if (gender) {
+        const genders = Array.isArray(gender) ? gender : gender.split(",");
+        query.gender = { $in: genders };
+      }
+  
+      if (color) {
+        const colors = Array.isArray(color) ? color : color.split(",");
+        query.colors = { $in: colors };
+      }
+  
+      let shoesQuery = shoesModel.find(query)
+        .populate("idBrand", "name")  // aquí el modelo se llama 'brands'
+        .populate("idModel", "name category");  // modelo 'models'
+  
+      if (order === "MAYOR A MENOR") {
+        shoesQuery = shoesQuery.sort({ price: -1 });
+      } else if (order === "MENOR A MAYOR") {
+        shoesQuery = shoesQuery.sort({ price: 1 });
+      }
+  
+      const shoes = await shoesQuery.exec();
+  
+      res.json(shoes);
+    } catch (error) {
+      console.error("Error fetching shoes:", error);
+      res.status(500).json({ error: "Error fetching shoes" });
+    }
+  };
+  
 
 
 //insert
@@ -26,6 +54,10 @@ shoessController.createshoes = async (req, res) => {
     const { name, description, price, size, idModel, idBrand, stock, gender, releaseDate, colors, sale } = req.body;
 
      let img="";
+
+     try {
+        
+     
      if(req.file){  
         const resul = await cloudinary.uploader.upload(req.file.path,{
             folder: "public",
@@ -50,6 +82,10 @@ shoessController.createshoes = async (req, res) => {
 
     await newshoes.save();
     res.json({ message: "shoe save" });
+    } catch (error) {
+        console.error("Error al crear zapato:", error.message);
+        console.error("Stack:", error.stack);
+        res.status(500).json({ message: "Error interno del servidor" });    }
 };
 
 //delete

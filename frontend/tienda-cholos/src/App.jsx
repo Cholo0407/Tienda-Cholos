@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import React from 'react';
 import About from './pages/About.jsx';
 import Home from './pages/Home.jsx';
@@ -27,7 +27,7 @@ function AppContent() {
 
       <Routes>
         {/* Página inicial: Login */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<Login />} />
 
         {/* Página principal después de login */}
@@ -36,7 +36,7 @@ function AppContent() {
         {/* Otras rutas */}
         <Route path="/about" element={<About />} />
         <Route path="/shoes" element={<Shoes />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/shoes/:id" element={<Product />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/cart2" element={<CheckoutForm />} />
         <Route path="/contact" element={<ContactForm />} />

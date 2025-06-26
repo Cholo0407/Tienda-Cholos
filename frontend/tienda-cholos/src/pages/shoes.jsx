@@ -2,65 +2,86 @@ import React, { useState } from 'react';
 import Footer from "../components/Footer";
 import FiltersSidebar from "../components/FiltersSidebar";
 import ProductCard from "../components/ProductCard";
-import nike from '../images/nike.png'; 
+import { Link, useNavigate } from 'react-router-dom';
+import useFetchShoes from '../hooks/useFetchShoes'; // <-- importa aquí
 
 function Shoes() {
-  // Estado para gestionar el filtro de orden de precio seleccionado (por defecto vacío)
   const [selectedPriceOrder, setSelectedPriceOrder] = useState("");
-
-  // Estado para controlar qué secciones del filtro están abiertas (expandidas) o cerradas
-  const [openSections, setOpenSections] = useState({
-    CATEGORÍA: true,  
-    GÉNERO: false,    
-    MARCA: false,     
-    COLOR: false,     
-    PRECIO: false,    
+  const navigate = useNavigate();
+  const [filters, setFilters] = useState({
+    category: [],
+    gender: [],
+    brand: [],
+    color: [],
   });
 
-  // Función para alternar entre abrir o cerrar una sección de filtros
+  const [openSections, setOpenSections] = useState({
+    CATEGORÍA: true,
+    GÉNERO: false,
+    MARCA: false,
+    COLOR: false,
+    PRECIO: false,
+  });
+
   const toggleSection = (section) => {
     setOpenSections((prev) => ({
-      ...prev,  // Mantiene el estado anterior de las secciones
-      [section]: !prev[section],  // Cambia el estado de la sección que se pasa como parámetro
+      ...prev,
+      [section]: !prev[section],
     }));
   };
+
+
+  const handleProductClick = (shoe) => {
+    navigate(`/shoes/${shoe._id}`, { state: { product: shoe } });
+  };
+
+
+  const updateFilters = (type, value) => {
+    setFilters((prev) => {
+      const current = prev[type];
+      const updated = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value];
+      return { ...prev, [type]: updated };
+    });
+  };
+
+  const { shoes, loading, error } = useFetchShoes(filters, selectedPriceOrder);
 
   return (
     <div>
       <div className="min-h-screen bg-white text-black pt-20 px-6 pb-12">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row w-full gap-6">
-            {/* Componente de filtros separado */}
-            {/* Pasa el estado de las secciones abiertas y la función toggleSection al componente FiltersSidebar */}
             <FiltersSidebar
               openSections={openSections}
               toggleSection={toggleSection}
               selectedPriceOrder={selectedPriceOrder}
               setSelectedPriceOrder={setSelectedPriceOrder}
+              updateFilters={updateFilters}
+              filters={filters}
             />
 
-            {/* Cuadrícula de productos */}
             <div className="flex-1">
+              {loading && <p>Cargando zapatos...</p>}
+              {error && <p>Error al cargar: {error.message}</p>}
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Muestra múltiples tarjetas de productos, en este caso con el mismo producto de ejemplo */}
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
-                <ProductCard name="Nike Air Force One" color="White" price={90.0} image={nike} />
+                {shoes.map((shoe) => (
+                  <ProductCard
+                    key={shoe._id}
+                    name={shoe.name}
+                    color={shoe.colors?.[0] || "N/A"}
+                    price={shoe.price}
+                    sale={shoe.sale}
+                    image={shoe.images}
+                    onClick={() => handleProductClick(shoe)}
+                  />
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Componente Footer que se muestra al final de la página */}
       <Footer />
     </div>
   );

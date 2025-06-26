@@ -36,12 +36,12 @@ const shoeSchema = new Schema({
     }],
     idModel: {
         type: Schema.Types.ObjectId, 
-        ref: "Model",
+        ref: "models",
         required: [true, "El ID del modelo es obligatorio"],
     },
     idBrand: {
         type: Schema.Types.ObjectId, 
-        ref: "Brand",
+        ref: "brands",
         required: [true, "El ID de la marca es obligatorio"],
     },
     stock: {

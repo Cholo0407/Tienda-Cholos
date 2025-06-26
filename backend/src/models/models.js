@@ -25,4 +25,4 @@ const modelsSchema =  new Schema(
     }
 );
 
-export default model('model', modelsSchema)
+export default model('models', modelsSchema)
